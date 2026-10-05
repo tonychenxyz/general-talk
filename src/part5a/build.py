@@ -43,11 +43,19 @@ S.append(f'''  <section class="slide p2" data-name="Discovery title">
 
 # ---------- 2. iPhone glitch video ----------
 S.append(f'''  <section class="slide p2" data-name="iPhone glitch">
-    <video class="sa-vid" src="media/iphone-glitch.mp4" poster="{POSTER}" playsinline preload="auto" controls></video>
+    <video class="sa-vid" poster="{POSTER}" playsinline preload="auto" controls>
+      <source src="media/iphone-glitch.mp4" type="video/mp4">
+      <source src="https://cdn.jsdelivr.net/gh/tonychenxyz/general-talk@main/media/iphone-glitch.mp4" type="video/mp4">
+    </video>
+    <button class="sa-play" aria-label="Play video"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></button>
     <script>(() => {{
       const s = document.currentScript.closest("section"), v = s.querySelector("video");
       let on = false;
+      const btn = s.querySelector(".sa-play");
       v.addEventListener("click", e => e.stopPropagation());   // clicks on the player must not advance the slide
+      btn.addEventListener("click", e => {{ e.stopPropagation(); v.play().catch(() => {{}}); }});
+      const sync = () => btn.classList.toggle("on", v.paused);
+      ["play", "pause", "ended"].forEach(ev => v.addEventListener(ev, sync)); sync();
       new MutationObserver(() => {{
         const a = s.classList.contains("active");
         if (a === on) return;
@@ -165,6 +173,10 @@ CSS = r'''
 /* video */
 .sa-vid { position: absolute; left: 100px; top: 56px; width: 1400px; height: 788px; border-radius: 24px;
   background: #111; object-fit: cover; box-shadow: 0 24px 60px -24px rgba(31, 35, 40, .35); }
+.sa-play { position: absolute; left: 740px; top: 390px; width: 120px; height: 120px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(31,35,40,.72); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+.sa-play.on { opacity: 1; pointer-events: auto; }
+.sa-play svg { width: 56px; height: 56px; fill: #fff; margin-left: 8px; }
 /* story */
 .sa-story [data-in], .sa-story [data-out] { transition-delay: var(--d, 0s); }
 .sa-stage { position: absolute; left: 0; top: 20px; width: 1600px; height: 900px; transform: translate(420px, 50px);

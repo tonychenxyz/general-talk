@@ -61,11 +61,11 @@ pa = ['<g class="sb-pa">', loop('116,97.36', '228,97.36', ('😠', 'Frustrated',
       # Senior SWE-Bench: from Diagnose all the way round to Code Update
       '<g data-in="2"><path d="M241.28,145.00 A80,80 0 1,1 102.72,145.00" fill="none" stroke="#668499" stroke-width="4.5" marker-end="url(#sb-senior)"/>'
       '<circle cx="241.28" cy="145" r="3" fill="#668499"/>'
-      '<text x="172" y="149" text-anchor="middle" class="sb-arc">Senior SWE-Bench</text></g>',
+      '<text x="172" y="149" text-anchor="middle" class="sb-arc">Senior SWE-Bench</text><text x="172" y="160" text-anchor="middle" class="sb-cite">(Ehrenberg et al., 2026)</text></g>',
       # SWE-bench: from Design Fix to Code Update
       '<g data-in="1"><path d="M172.00,239.00 A54,54 0 0,1 125.23,158.00" fill="none" stroke="#BE776C" stroke-width="4.5" marker-end="url(#sb-swe)"/>'
       '<circle cx="172" cy="239" r="3" fill="#BE776C"/>'
-      '<text x="180" y="201" text-anchor="middle" class="sb-arc">SWE-bench</text></g>',
+      '<text x="180" y="201" text-anchor="middle" class="sb-arc">SWE-bench</text><text x="180" y="212" text-anchor="middle" class="sb-cite">(Jimenez et al., 2024)</text></g>',
       '</g>']
 pb = ['<g class="sb-pb"><g transform="translate(376 0)">', loop('114,98.68', '230,98.68', ('🐞', 'Problem', 'Discovery')),
       '<rect x="116" y="64" width="112" height="43" rx="6" fill="#E9E5F3" stroke="#000" stroke-width=".95"/>',
@@ -98,6 +98,7 @@ CSS.append(f'''
 .sb-par .sb-box.sm {{ font-size: 11.5px; }}
 .sb-par .sb-small {{ font-size: 9.5px; }}
 .sb-par .sb-arc {{ font-size: 10.5px; font-weight: 700; }}
+.sb-par .sb-cite {{ font-size: 7.5px; font-weight: 400; }}
 .sb-pbin {{ display: none; }}
 .sb-pa {{ transform: translateX({SHIFT:.2f}px); transition: transform 1s var(--ease); }}
 .sb-pb {{ opacity: 0; transition: opacity .7s ease; }}

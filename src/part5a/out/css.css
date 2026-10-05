@@ -1,0 +1,67 @@
+.sa-kick { font-size: 30px; font-weight: 500; color: var(--text); margin-bottom: 18px; }
+.title .sa-sub { font-size: 34px; margin-top: 40px; }
+.title .sa-sub b { font-weight: 600; }
+/* video */
+.sa-vid { position: absolute; left: 100px; top: 56px; width: 1400px; height: 788px; border-radius: 24px;
+  background: #111; object-fit: cover; box-shadow: 0 24px 60px -24px rgba(31, 35, 40, .35); }
+/* story */
+.sa-story [data-in], .sa-story [data-out] { transition-delay: var(--d, 0s); }
+.sa-stage { position: absolute; left: 0; top: 20px; width: 1600px; height: 900px; transform: translate(420px, 50px);
+  transition: transform .9s var(--ease); }
+.sa-p1 .sa-stage { transform: translateX(270px); }
+.sa-p2 .sa-stage { transform: none; }
+.sa-svg { position: absolute; inset: 0; width: 1600px; height: 900px; overflow: visible; }
+.sa-you, .sa-claude { position: absolute; width: 160px; text-align: center; }
+.sa-you { left: 100px; top: 400px; }
+.sa-claude { left: 390px; top: 405px; }
+.sa-you .sa-e { font-size: 110px; line-height: 1; }
+.sa-cl { width: 104px; height: 104px; display: block; margin: 0 auto 12px; }
+.sa-lb { font-size: 24px; font-weight: 600; margin-top: 10px; }
+.sa-bub { position: absolute; left: 100px; bottom: 540px; width: 560px; padding: 18px 26px; font-size: 28px; line-height: 1.35;
+  background: #f3f5f7; border-radius: 22px; }
+.sa-bub::after { content: ""; position: absolute; left: 66px; bottom: -14px; border: 14px solid transparent;
+  border-bottom: 0; border-top-color: #f3f5f7; }
+.sa-wait { position: absolute; left: 640px; top: 760px; padding: 10px 22px; border-radius: 999px; font-size: 26px; font-weight: 600;
+  background: var(--c-red-soft); color: var(--text); }
+.sa-phone { position: absolute; left: 710px; top: 230px; width: 250px; height: 480px; border: 4px solid var(--ink); border-radius: 40px;
+  background: #fff; padding: 66px 24px 0; text-align: center; box-shadow: 0 20px 44px -24px rgba(10, 37, 64, .45); }
+.sa-notch { position: absolute; left: 50%; top: 14px; width: 74px; height: 20px; margin-left: -37px; border-radius: 10px; background: var(--ink); }
+.sa-ttl { font-size: 40px; font-weight: 700; letter-spacing: .04em; color: var(--ink); }
+.sa-who { font-size: 20px; color: var(--text); margin-top: 6px; }
+.sa-date { font-size: 18px; font-weight: 600; color: var(--ink); margin-top: 4px; }
+.sa-field { margin-top: 32px; border: 2px solid var(--faint); border-radius: 10px; padding: 9px 12px; font-size: 18px; color: var(--text); text-align: left; }
+.sa-yn { display: flex; gap: 10px; margin-top: 18px; }
+.sa-yn span { flex: 1; border: 2px solid var(--faint); border-radius: 999px; padding: 6px 0; font-size: 18px; }
+.sa-yn .on { border-color: var(--accent); color: var(--accent); background: var(--c-blue-soft); font-weight: 600; }
+.sa-send { margin-top: 44px; background: var(--accent); color: #fff; border-radius: 12px; padding: 13px 0; font-size: 20px; font-weight: 600; }
+.sa-cur { position: absolute; left: 0; top: 0; font-size: 40px; line-height: 1; }
+.sa-story.active .sa-cur:not(.frag-hidden) { animation: sa-tap 3.2s var(--ease) infinite; }
+@keyframes sa-tap {
+  0%, 100% { transform: translate(70px, 190px); }
+  25% { transform: translate(150px, 250px) scale(.85); }
+  50% { transform: translate(110px, 330px) scale(.85); }
+  75% { transform: translate(60px, 250px) scale(.85); }
+}
+.sa-step { position: absolute; transform: translate(-50%, -50%); padding: 8px 22px; border-radius: 999px; background: #fff;
+  border: 2px solid var(--accent); color: var(--text); font-size: 24px; font-weight: 600; white-space: nowrap; }
+.sa-guests { transition: opacity .6s ease, filter .6s ease; }
+.sa-dim:not(.sa-ok) .sa-guests { opacity: .3; filter: grayscale(1); }
+.sa-card { position: absolute; width: 220px; height: 230px; border: 2px solid var(--faint); border-radius: 18px; background: #fff;
+  text-align: center; padding-top: 16px; }
+.sa-card.frag-hidden { transform: translateY(14px); }
+.sa-av { position: relative; display: inline-block; font-size: 64px; line-height: 1; }
+.sa-mood { position: absolute; left: -38px; bottom: -6px; font-size: 34px; }
+.sa-mood.frag-hidden { transform: scale(.3); }
+.sa-nm { font-size: 22px; font-weight: 600; margin-top: 12px; }
+.sa-det { font-size: 18px; color: var(--text); margin-top: 2px; }
+.sa-pill { position: absolute; left: 14px; right: 14px; bottom: 14px; border-radius: 999px; padding: 7px 0; font-size: 19px; font-weight: 600;
+  color: var(--text); display: flex; align-items: center; justify-content: center; gap: 8px; }
+.sa-ic { width: 20px; height: 20px; flex: none; }
+.sa-pill.frag-hidden { transform: scale(.4); }
+.sa-bad { background: var(--c-red-soft); }
+.sa-good { background: var(--c-green-soft); }
+/* SWEeper-Bench title */
+.sa-icon { width: 170px; height: auto; margin-bottom: 26px; }
+.sa-hl { background: linear-gradient(var(--mark), var(--mark)) no-repeat 0 82% / 0 36%; transition: background-size .8s var(--ease); }
+.sa-swe .sa-hl { background-size: 100% 36%; }
+.sa-tslide .sa-sub b { font-weight: 700; }

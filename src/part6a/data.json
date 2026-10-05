@@ -1,0 +1,74 @@
+{
+ "fig_size": [
+  720.0,
+  275.8125
+ ],
+ "robustness": [
+  {
+   "icon": "openai",
+   "model": "GPT-5.6 Luna",
+   "harness": "Codex",
+   "buggy_target": [
+    0.2,
+    0.3
+   ],
+   "buggy_pres": [
+    99.2,
+    0.8
+   ],
+   "fix_target": [
+    99.8,
+    0.3
+   ],
+   "fix_pres": [
+    99.3,
+    0.3
+   ],
+   "cost": "$0.160"
+  },
+  {
+   "icon": "openai",
+   "model": "GPT-5.6 Luna",
+   "harness": "Browser Use",
+   "buggy_target": [
+    0.8,
+    0.3
+   ],
+   "buggy_pres": [
+    99.8,
+    0.3
+   ],
+   "fix_target": [
+    99.8,
+    0.3
+   ],
+   "fix_pres": [
+    99.7,
+    0.3
+   ],
+   "cost": "$0.635"
+  },
+  {
+   "icon": "claude",
+   "model": "Claude Sonnet 5",
+   "harness": "Browser Use",
+   "buggy_target": [
+    0.2,
+    0.3
+   ],
+   "buggy_pres": [
+    99.8,
+    0.3
+   ],
+   "fix_target": [
+    99.8,
+    0.3
+   ],
+   "fix_pres": [
+    100.0,
+    0.0
+   ],
+   "cost": "$3.840"
+  }
+ ]
+}

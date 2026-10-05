@@ -1,0 +1,27 @@
+.rb-svg { position: absolute; inset: 0; width: 1600px; height: 900px; overflow: visible; }
+.rb-svg text { font-family: "Inter", sans-serif; fill: #1f2328; }
+.rb-tick { font-size: 20px; }
+.rb-axt { font-size: 22px; }
+.rb-svg text.rb-call { font-size: 26px; font-weight: 700; }
+.rb-svg text.rb-rk { font-size: 16px; font-weight: 700; fill: #fff; }
+.rb-list { position: absolute; left: 1060px; top: 0; width: 440px; }
+.rb-row { position: absolute; left: 0; width: 440px; height: 38px; display: flex; align-items: center; gap: 12px; font-size: 22px; padding: 0 10px; border-radius: 8px; white-space: nowrap; transition: background .4s, opacity .6s ease, transform .6s var(--ease); }
+.rb-row b { font-weight: 700; }
+.rb-row img { width: 24px; height: 24px; }
+.rb-n { width: 24px; text-align: right; }
+.rb-p { margin-left: auto; font-variant-numeric: tabular-nums; }
+.rb-top .rb-row.rb-best { background: var(--mark); }
+.rb-half .rb-row.rb-low { background: var(--c-red-soft); }
+.rb-stage { font-size: 22px; }
+.rb-svg .rb-seg { fill: none; stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset .8s var(--ease), stroke .4s; }
+.rb-svg .rb-avg { stroke: #000; }
+.rb-step.frag-hidden { transform: none; }
+.rb-step.frag-hidden .rb-seg { stroke-dashoffset: 1; }
+.rb-step .rb-dot { transition: opacity .3s ease .6s, fill .4s; }
+.rb-step.frag-hidden .rb-dot { opacity: 0; transition: none; }
+.rb-svg .rb-avgdot { fill: #000; }
+.rb-svg .rb-avgv { font-size: 24px; font-weight: 700; paint-order: stroke; stroke: #fff; stroke-width: 7px; stroke-linejoin: round; }
+.rb-svg .rb-avgname { font-size: 24px; font-weight: 700; }
+.rb-svg .rb-grayname { font-size: 22px; fill: #8a8f95; }
+.rb-svg .rb-drop { font-size: 40px; font-weight: 700; }
+.rb-hot .rb-svg .rb-hotseg { stroke: var(--c-red); }

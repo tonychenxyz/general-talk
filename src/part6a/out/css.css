@@ -1,0 +1,484 @@
+.ra-fig *{box-sizing:border-box}
+.ra-fig{margin:0;background:#fff;color:#22272f;font-family:Inter,Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+.ra-fig .ra-main{width:1880px;padding:40px 34px 26px;margin:auto}
+.ra-fig .ra-diagram{display:grid;grid-template-columns:330px 54px 520px 54px 854px;align-items:center;gap:0}
+.ra-fig .ra-input{background:#232830;color:white;border-radius:24px;padding:28px 27px;height:518px}
+.ra-fig h2, .ra-fig h3, .ra-fig p{margin:0}
+.ra-fig h2{font-size:29px;letter-spacing:-.7px;font-weight:700;display:flex;align-items:center;gap:12px}
+.ra-fig .ra-icon{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ra-fig .ra-repo-name{font-size:22px;margin:17px 0 22px;font-weight:600;color:#eef2f9}
+.ra-fig .ra-repo-name a{color:inherit;text-decoration:none}
+.ra-fig .ra-tree{font-size:18px;display:grid;grid-template-columns:1fr 1fr;gap:17px 10px}
+.ra-fig .ra-file{display:flex;gap:9px;align-items:center;white-space:nowrap}
+.ra-fig .ra-file .ra-icon{width:20px;height:20px}
+.ra-fig .ra-divider{height:1px;background:#47505d;margin:29px 0 25px}
+.ra-fig .ra-prompt{font-size:25px;line-height:1.43;font-style:italic;margin-top:15px;letter-spacing:-.25px}
+.ra-fig .ra-arrow{display:flex;justify-content:center;color:#262b33}
+.ra-fig .ra-arrow svg{width:34px;height:34px}
+.ra-fig .ra-sandbox{border:2px dashed #b7c2d1;border-radius:22px;background:#fafbfd;padding:24px 18px 18px;position:relative}
+.ra-fig .ra-sandbox-label{position:absolute;top:-13px;left:21px;background:white;padding:0 10px;font-size:17px;font-weight:600;color:#697787;display:flex;align-items:center;gap:7px}
+.ra-fig .ra-sandbox-label .ra-icon{width:18px;height:18px}
+.ra-fig .ra-agent{border:3px solid #086bea;background:#e7f1ff;border-radius:19px;color:#076be8;display:flex;justify-content:center;align-items:center;gap:12px;padding:17px 8px;font-size:27px;font-weight:700;letter-spacing:-.6px}
+.ra-fig .ra-agent .ra-icon{width:31px;height:31px}
+.ra-fig .ra-down{height:38px;display:flex;align-items:center;justify-content:center;color:#096ce8}
+.ra-fig .ra-down .ra-icon{width:27px;height:27px}
+.ra-fig .ra-terminal{border:1.5px solid #d8dee7;border-radius:12px;overflow:hidden;background:white}
+.ra-fig .ra-bar{background:#f0f3f7;border-bottom:1px solid #dce2e9;padding:10px 13px;display:flex;align-items:center;gap:6px;color:#697483;font-size:12px;letter-spacing:.3px}
+.ra-fig .ra-dot{width:7px;height:7px;border-radius:50%;background:#bec6d1}
+.ra-fig .ra-bar-label{margin-left:7px}
+.ra-fig .ra-trace{font:15px/1.7 'SFMono-Regular',Consolas,monospace;padding:14px 15px 9px;color:#253247}
+.ra-fig .ra-cmd{color:#096be8}
+.ra-fig .ra-out{color:#738093;padding-left:16px}
+.ra-fig .ra-ellipsis{color:#a7b0bd;letter-spacing:4px;line-height:1.3}
+.ra-fig .ra-pr{background:#f5f7f9;border:2px solid #d8dfe8;border-radius:12px;padding:16px}
+.ra-fig .ra-pr h3{font-size:25px;display:flex;gap:9px;align-items:center;letter-spacing:-.4px}
+.ra-fig .ra-blue{color:#0b6ce9}
+.ra-fig .ra-pr-file{font:13px 'SFMono-Regular',Consolas,monospace;color:#596778;margin:12px 0 10px}
+.ra-fig .ra-diff{font:14px/1.8 'SFMono-Regular',Consolas,monospace;border:1px solid #dce3e9;border-radius:7px;overflow:hidden;background:white}
+.ra-fig .ra-diff div{padding:2px 10px}
+.ra-fig .ra-minus{color:#a74e50;background:#fff0ef}
+.ra-fig .ra-plus{color:#248449;background:#eaf8ef}
+.ra-fig .ra-note{font-size:11px;color:#7d8999;margin-top:9px}
+.ra-fig .ra-verifier{background:#f6f7f9;border:2px solid #d8dfe7;border-radius:24px;padding:25px 25px 21px}
+.ra-fig .ra-verifier h2{font-size:31px;color:#11161d}
+.ra-fig .ra-verifier h2 .ra-icon{width:31px;height:31px}
+.ra-fig .ra-workflow{background:#fff;border:1.5px solid #d8dfe7;border-radius:13px;padding:16px 18px;margin-top:20px}
+.ra-fig .ra-section-label{font-size:12px;letter-spacing:1.5px;font-weight:700;color:#778393;margin-bottom:11px;text-transform:uppercase}
+.ra-fig .ra-steps{display:grid;gap:9px;font-size:18px;line-height:1.4}
+.ra-fig .ra-step{display:flex;align-items:baseline;gap:11px}
+.ra-fig .ra-num{font:12px 'SFMono-Regular',Consolas,monospace;color:#8d9aac}
+.ra-fig .ra-steps code, .ra-fig .ra-criteria code, .ra-fig .ra-result code{font-family:'SFMono-Regular',Consolas,monospace;font-size:.91em}
+.ra-fig code{background:#eef2f7;border-radius:4px;padding:1px 5px}
+.ra-fig .ra-criteria{margin-top:12px;padding-top:11px;border-top:1px solid #e7ebf0;font-size:13px;line-height:1.65;color:#788494}
+.ra-fig .ra-criteria strong{color:#556575}
+.ra-fig .ra-browsers{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:19px}
+.ra-fig .ra-browser{border:1.5px solid #cdd6e1;border-radius:12px;overflow:hidden;background:white;margin:0}
+.ra-fig .ra-browser-top{height:34px;display:flex;align-items:center;gap:4px;background:#eef2f6;border-bottom:1px solid #dce3eb;padding:0 11px}
+.ra-fig .ra-browser-top .ra-dot{width:6px;height:6px}
+.ra-fig .ra-address{font-size:10px;margin-left:10px;background:#fff;padding:4px 12px;border-radius:5px;color:#8993a1;flex:1;display:flex;gap:6px;align-items:center}
+.ra-fig .ra-address .ra-icon{width:10px;height:10px}
+.ra-fig .ra-viewport{position:relative;background:#fdfdfd;line-height:0}
+.ra-fig .ra-frame{width:100%;height:auto;display:block}
+.ra-fig .ra-cursor{position:absolute;width:27px;height:28px;filter:drop-shadow(0 0 5px #2684ffdd) drop-shadow(0 0 10px #2684ff77);pointer-events:none}
+.ra-fig .ra-first .ra-cursor{left:31%;top:48%}
+.ra-fig .ra-second .ra-cursor{left:21%;top:63%}
+.ra-fig .ra-caption{padding:12px 12px 13px;border-top:1px solid #e6eaf0;font-size:13px;display:flex;justify-content:space-between;align-items:center;color:#526174}
+.ra-fig .ra-caption b{font-weight:600;color:#2c394b}
+.ra-fig .ra-time{font:10px 'SFMono-Regular',Consolas,monospace;color:#8e99a7}
+.ra-fig .ra-result-arrow{height:30px;display:flex;justify-content:center;align-items:center;color:#34a358}
+.ra-fig .ra-result-arrow .ra-icon{width:25px;height:25px}
+.ra-fig .ra-result{display:flex;gap:16px;align-items:center;justify-content:center;border:1.5px solid #b9dfc5;background:#ebf8ef;border-radius:12px;padding:13px;color:#288244}
+.ra-fig .ra-result b{font-size:23px;letter-spacing:1px}
+.ra-fig .ra-result .ra-icon{width:26px;height:26px;stroke-width:3}
+.ra-fig .ra-result span{font-size:16px}
+.ra-fig .ra-result code{background:#dcefe3}
+.ra-fig{background:#fff}
+.ra-fig .ra-main{width:7.5in;margin:28px auto;padding:0}
+.ra-fig .ra-diagram{grid-template-columns:148px 20px 234px 20px 298px;align-items:center}
+.ra-fig .ra-input{border-radius:12px;padding:15px 13px;height:auto}
+.ra-fig h2{font-size:16px;letter-spacing:-.35px;gap:6px}
+.ra-fig .ra-icon{width:17px;height:17px}
+.ra-fig .ra-repo-name{font-size:11px;margin:10px 0 15px}
+.ra-fig .ra-tree{font-size:9px;gap:10px 5px}
+.ra-fig .ra-file{gap:4px}
+.ra-fig .ra-file .ra-icon{width:12px;height:12px}
+.ra-fig .ra-divider{margin:18px 0 14px}
+.ra-fig .ra-prompt{font-size:14px;line-height:1.45;margin-top:9px;letter-spacing:0}
+.ra-fig .ra-arrow svg{width:18px;height:18px}
+.ra-fig .ra-sandbox{padding:15px 8px 9px;border-width:1px;border-radius:12px}
+.ra-fig .ra-sandbox-label{font-size:10px;top:-8px;left:10px;padding:0 5px;gap:4px}
+.ra-fig .ra-sandbox-label .ra-icon{width:12px;height:12px}
+.ra-fig .ra-agent{font-size:12px;letter-spacing:-.3px;gap:5px;padding:10px 3px;border-width:2px;border-radius:9px;white-space:nowrap}
+.ra-fig .ra-agent .ra-icon{width:17px;height:17px}
+.ra-fig .ra-down{height:23px}
+.ra-fig .ra-down .ra-icon{width:17px;height:17px}
+.ra-fig .ra-terminal{border-radius:6px;border-width:1px}
+.ra-fig .ra-bar{padding:6px 7px;font-size:8px;gap:3px}
+.ra-fig .ra-dot{width:4px;height:4px}
+.ra-fig .ra-bar-label{margin-left:4px}
+.ra-fig .ra-trace{font-size:8px;line-height:1.65;padding:9px 7px}
+.ra-fig .ra-cmd{font-weight:600;white-space:nowrap}
+.ra-fig .ra-out{padding-left:8px}
+.ra-fig .ra-success{color:#268246}
+.ra-fig .ra-failure{color:#c05151}
+.ra-fig .ra-ellipsis{font-size:8px;letter-spacing:1px;margin:5px 0;color:#9ca5b1}
+.ra-fig .ra-pr{padding:9px;border-width:1px;border-radius:6px}
+.ra-fig .ra-pr h3{font-size:14px;gap:5px}
+.ra-fig .ra-pr-file{font-size:8px;margin:7px 0}
+.ra-fig .ra-diff{font-size:8px;border-radius:4px;line-height:1.6}
+.ra-fig .ra-diff div{padding:2px 5px}
+.ra-fig .ra-note{font-size:7px;margin-top:4px}
+.ra-fig .ra-verifier{padding:12px;border-width:1px;border-radius:12px}
+.ra-fig .ra-verifier h2{font-size:17px;gap:6px;letter-spacing:-.4px}
+.ra-fig .ra-verifier h2 .ra-icon{width:18px;height:18px}
+.ra-fig .ra-workflow{margin-top:11px;padding:8px;border-radius:6px;border-width:1px}
+.ra-fig .ra-steps{font-size:9px;gap:6px;line-height:1.35}
+.ra-fig .ra-step{gap:6px}
+.ra-fig .ra-num{font-size:8px}
+.ra-fig code{padding:1px 3px}
+.ra-fig .ra-browsers{grid-template-columns:1fr;gap:7px;margin-top:10px}
+.ra-fig .ra-browser{border-radius:6px;border-width:1px}
+.ra-fig .ra-browser-top{height:18px;padding:0 6px;gap:3px}
+.ra-fig .ra-browser-top .ra-dot{width:3px;height:3px}
+.ra-fig .ra-address{font-size:7px;padding:2px 6px;margin-left:5px;border-radius:3px}
+.ra-fig .ra-address .ra-icon{width:7px;height:7px}
+.ra-fig .ra-first .ra-viewport{height:84px;overflow:hidden}
+.ra-fig .ra-first .ra-frame{margin-top:-8px}
+.ra-fig .ra-second .ra-viewport{height:127px;overflow:hidden}
+.ra-fig .ra-second .ra-frame{margin-top:-9px}
+.ra-fig .ra-cursor{width:18px;height:19px;filter:drop-shadow(0 0 3px #2684ffdd) drop-shadow(0 0 6px #2684ff77)}
+.ra-fig .ra-first .ra-cursor{top:72%;left:31%}
+.ra-fig .ra-second .ra-cursor{top:62%;left:22%}
+.ra-fig .ra-result-arrow{height:18px}
+.ra-fig .ra-result-arrow .ra-icon{width:16px;height:16px}
+.ra-fig .ra-result{padding:6px;gap:7px;border-width:1px;border-radius:6px}
+.ra-fig .ra-result b{font-size:13px;letter-spacing:.6px}
+.ra-fig .ra-result .ra-icon{width:16px;height:16px}
+.ra-fig .ra-result span{font-size:10px}
+.ra-fig .ra-flow{display:grid;grid-template-columns:148px 20px 234px 20px 298px;align-items:start;position:relative}
+.ra-fig .ra-input{margin-top:0;grid-column:1}
+.ra-fig .ra-input-arrow{grid-column:2;display:flex;justify-content:center;padding-top:12px}
+.ra-fig .ra-input-arrow .ra-icon, .ra-fig .ra-pr-arrow .ra-icon{width:18px;height:18px}
+.ra-fig .ra-build-column{grid-column:3}
+.ra-fig .ra-build-column>.ra-agent{height:42px}
+.ra-fig .ra-build-column>.ra-down{height:26px}
+.ra-fig .ra-sandbox{padding:13px 7px 8px}
+.ra-fig .ra-trace{font-size:8.5px;padding:9px 6px;line-height:1.6}
+.ra-fig .ra-trace .ra-cmd{font-weight:500;white-space:normal}
+.ra-fig .ra-trace .ra-cmd:not(:first-child){margin-top:10px}
+.ra-fig .ra-trace .ra-out{margin-top:3px;padding-left:5px}
+.ra-fig .ra-pr{margin:0}
+.ra-fig .ra-pr-arrow{grid-column:4;position:absolute;left:402px;top:309px;width:20px;display:flex;justify-content:center}
+.ra-fig .ra-verify-column{grid-column:5}
+.ra-fig .ra-workflow.ra-separate{margin:0;padding:9px 11px;background:#fff;border:1px solid #cdd6e1;border-radius:9px}
+.ra-fig .ra-workflow h3{font-size:12px;margin:0 0 5px;letter-spacing:-.2px}
+.ra-fig .ra-workflow p{font-size:9px;line-height:1.65}
+.ra-fig .ra-verify-column>.ra-down{height:24px}
+.ra-fig .ra-verifier{padding:11px;border-radius:10px}
+.ra-fig .ra-verifier h2{font-size:16px}
+.ra-fig .ra-browsers{margin-top:9px;gap:7px}
+.ra-fig .ra-first .ra-viewport{height:68px}
+.ra-fig .ra-first .ra-frame{margin-top:-17px}
+.ra-fig .ra-first .ra-cursor{top:66%}
+.ra-fig .ra-second .ra-viewport{height:111px}
+.ra-fig .ra-second .ra-frame{margin-top:-17px}
+.ra-fig .ra-second .ra-cursor{top:60%}
+.ra-fig .ra-status-down{color:#29904b}
+.ra-fig .ra-status{border:1px solid #ccd8d0;border-radius:8px;background:#f5faf6;padding:8px 10px}
+.ra-fig .ra-status-heading{font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.ra-fig .ra-status-options{display:flex;align-items:center;gap:9px;font-size:10px}
+.ra-fig .ra-status-options b{display:flex;align-items:center;gap:3px;color:#247f40;background:#daf0e0;border:1px solid #abd2b6;border-radius:4px;padding:3px 7px}
+.ra-fig .ra-status-options b .ra-icon{width:12px;height:12px;stroke-width:3}
+.ra-fig .ra-status-options>span{color:#a0a7aa}
+.ra-fig .ra-status p{font-size:8.5px;line-height:1.5;color:#5d6862;margin-top:3px}
+.ra-fig .ra-status strong{font-weight:600;color:#35493a}
+.ra-fig .ra-note{font-size:7px}
+.ra-fig .ra-input{margin-top:0}
+.ra-fig .ra-prompt{font-size:13px}
+.ra-fig .ra-input .ra-divider{margin:15px 0 12px}
+.ra-fig .ra-input{padding:14px 12px}
+.ra-fig .ra-pr h3{font-size:14px}
+.ra-fig .ra-prompt strong{font-style:normal;font-weight:700;color:#fff;display:inline-block;margin-bottom:5px}
+.ra-fig .ra-prompt{color:#e1e5ec}
+.ra-fig .ra-pr-arrow{grid-column:1 / -1}
+.ra-fig .ra-prompt strong{display:inline;margin:0}
+.ra-fig .ra-workflow.ra-separate{position:relative;border-radius:2px;padding:10px 12px;background:linear-gradient(135deg,transparent 10px,#fff 0) top right/19px 19px no-repeat,#fff;border:1px solid #cbd3dc;clip-path:polygon(0 0,calc(100% - 17px) 0,100% 17px,100% 100%,0 100%);box-shadow:0 2px 0 #e9edf2}
+.ra-fig .ra-workflow.ra-separate::after{content:"";position:absolute;right:0;top:0;width:16px;height:16px;background:#e9eef4;border-left:1px solid #cbd3dc;border-bottom:1px solid #cbd3dc}
+.ra-fig .ra-workflow h3{padding-right:14px;margin-bottom:7px}
+.ra-fig .ra-workflow ol{margin:0;padding-left:15px;font-size:9px;line-height:1.6}
+.ra-fig .ra-workflow li{padding-left:2px;margin:3px 0}
+.ra-fig .ra-workflow li::marker{color:#718093;font-weight:600}
+.ra-fig .ra-bar{height:17px}
+.ra-fig .ra-status{background:#fff;padding:0;overflow:hidden;border-color:#d4ddd6}
+.ra-fig .ra-status-row{display:grid;grid-template-columns:49px 1fr;gap:7px;align-items:center;padding:8px;font-size:8.5px;line-height:1.4}
+.ra-fig .ra-pass-row{background:#edf8f0;color:#337148}
+.ra-fig .ra-fail-row{border-top:1px solid #e0e5e2;color:#78817c}
+.ra-fig .ra-status-badge{font-size:9px;text-align:center;padding:3px 4px;border-radius:4px;white-space:nowrap}
+.ra-fig .ra-pass-row .ra-status-badge{color:#247d3c;background:#d7efde;border:1px solid #abd2b5}
+.ra-fig .ra-fail-row .ra-status-badge{color:#7c8480;background:#f0f2f1;border:1px solid #e0e4e1}
+.ra-fig .ra-input .ra-tree{margin-top:14px}
+.ra-fig .ra-flow{grid-template-columns:208px 28px 236px 20px 228px;align-items:start}
+.ra-fig .ra-left-column{grid-column:1}
+.ra-fig .ra-build-column{grid-column:3;padding-top:66px}
+.ra-fig .ra-verify-column{grid-column:5}
+.ra-fig .ra-input{padding:14px 15px}
+.ra-fig .ra-input .ra-tree{font-size:10px;gap:10px}
+.ra-fig .ra-prompt{font-size:14px;line-height:1.4}
+.ra-fig .ra-left-column>.ra-down{height:24px}
+.ra-fig .ra-agent{height:40px;font-size:12px}
+.ra-fig .ra-sandbox{padding:12px 6px 7px}
+.ra-fig .ra-trace{font-size:9px;line-height:1.45;padding:9px 8px}
+.ra-fig .ra-trace .ra-cmd:not(:first-child){margin-top:5px}
+.ra-fig .ra-trace .ra-ellipsis{margin:7px 0}
+.ra-fig .ra-trace .ra-out{margin-top:5px}
+.ra-fig .ra-build-column>.ra-down{height:22px}
+.ra-fig .ra-pr{padding:9px}
+.ra-fig .ra-diff{margin-top:8px}
+.ra-fig .ra-workflow.ra-separate{padding:8px 9px}
+.ra-fig .ra-workflow h3{font-size:11px;margin-bottom:4px}
+.ra-fig .ra-workflow ol{font-size:8px;line-height:1.4;padding-left:13px}
+.ra-fig .ra-workflow li{margin:3px 0}
+.ra-fig .ra-verify-column>.ra-down{height:18px}
+.ra-fig .ra-verifier{padding:8px;border-radius:9px}
+.ra-fig .ra-verifier h2{font-size:14px;gap:5px}
+.ra-fig .ra-verifier h2 .ra-icon{width:16px;height:16px}
+.ra-fig .ra-browsers{margin-top:7px;gap:5px}
+.ra-fig .ra-browser-top{height:15px}
+.ra-fig .ra-first .ra-viewport{height:58px}
+.ra-fig .ra-first .ra-frame{margin-top:-11px}
+.ra-fig .ra-second .ra-viewport{height:91px}
+.ra-fig .ra-second .ra-frame{margin-top:-12px}
+.ra-fig .ra-cursor{width:15px;height:16px}
+.ra-fig .ra-first .ra-cursor{top:65%}
+.ra-fig .ra-second .ra-cursor{top:59%}
+.ra-fig .ra-status-row{grid-template-columns:41px 1fr;padding:6px;gap:5px;font-size:8px}
+.ra-fig .ra-status-badge{font-size:8px;padding:3px 2px}
+.ra-fig .ra-status{border-radius:6px}
+.ra-fig .ra-connectors{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.ra-fig .ra-connectors>path{fill:none;stroke:#000;stroke-width:1.2;stroke-linejoin:round}
+.ra-fig, .ra-fig h2, .ra-fig h3, .ra-fig .ra-agent, .ra-fig .ra-sandbox-label, .ra-fig .ra-verifier h2, .ra-fig .ra-blue, .ra-fig .ra-workflow, .ra-fig .ra-workflow li::marker, .ra-fig .ra-address, .ra-fig .ra-status-row, .ra-fig .ra-status-badge, .ra-fig .ra-pass-row .ra-status-badge, .ra-fig .ra-fail-row .ra-status-badge, .ra-fig .ra-down, .ra-fig .ra-status-down{color:#000}
+.ra-fig .ra-input, .ra-fig .ra-input h2, .ra-fig .ra-prompt, .ra-fig .ra-prompt strong{color:#fff}
+.ra-fig .ra-icon{color:inherit}
+.ra-fig .ra-input h2, .ra-fig .ra-agent, .ra-fig .ra-sandbox-label, .ra-fig .ra-pr h2, .ra-fig .ra-workflow h2, .ra-fig .ra-verifier h2, .ra-fig .ra-status h2{font-family:Inter,Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;line-height:1.2;letter-spacing:-.2px;display:flex;align-items:center;gap:6px;color:#000}
+.ra-fig .ra-input h2{color:#fff}
+.ra-fig .ra-input h2 .ra-icon, .ra-fig .ra-agent .ra-icon, .ra-fig .ra-sandbox-label .ra-icon, .ra-fig .ra-pr h2 .ra-icon, .ra-fig .ra-workflow h2 .ra-icon, .ra-fig .ra-verifier h2 .ra-icon, .ra-fig .ra-status h2 .ra-icon{width:16px;height:16px}
+.ra-fig .ra-agent{justify-content:center;font-size:13px}
+.ra-fig .ra-sandbox-label{position:static;background:none;padding:0;margin:0 0 9px}
+.ra-fig .ra-sandbox{padding:10px 8px}
+.ra-fig .ra-workflow h2{padding-right:10px;margin:0 0 7px}
+.ra-fig .ra-pr h2{margin:0}
+.ra-fig .ra-status h2{padding:9px 9px 7px;margin:0}
+.ra-fig .ra-trace{font-size:8px;line-height:1.5;padding:9px 6px}
+.ra-fig .ra-diff{font-size:7.8px;line-height:1.6}
+.ra-fig .ra-diff div{padding:3px 5px}
+.ra-fig .ra-context{color:#253247;background:#fff}
+.ra-fig .ra-build-column{padding-top:61px}
+.ra-fig .ra-first .ra-viewport{height:58px}
+.ra-fig .ra-second .ra-viewport{height:91px}
+.ra-fig .ra-flow{align-items:stretch}
+.ra-fig .ra-left-column, .ra-fig .ra-build-column, .ra-fig .ra-verify-column{min-height:448px;display:flex;flex-direction:column}
+.ra-fig .ra-build-column{padding-top:0}
+.ra-fig .ra-left-column>.ra-input{flex:1;display:flex;flex-direction:column}
+.ra-fig .ra-left-column>.ra-input .ra-divider{margin-top:auto}
+.ra-fig .ra-left-column>.ra-input .ra-prompt{margin-bottom:5px}
+.ra-fig .ra-left-column>.ra-down{height:32px;flex:none}
+.ra-fig .ra-left-column>.ra-agent{flex:none}
+.ra-fig .ra-build-column>.ra-sandbox{flex:1;display:flex;flex-direction:column}
+.ra-fig .ra-build-column .ra-terminal{flex:1;display:flex;flex-direction:column}
+.ra-fig .ra-build-column .ra-trace{flex:1;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.ra-fig .ra-build-column>.ra-down{height:32px;flex:none}
+.ra-fig .ra-build-column>.ra-pr{flex:none}
+.ra-fig .ra-verify-column>.ra-verifier{flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.ra-fig .ra-verify-column>.ra-workflow, .ra-fig .ra-verify-column>.ra-status{flex:none}
+.ra-fig .ra-verify-column>.ra-down{height:22px;flex:none}
+.ra-fig .ra-browsers{flex:1;display:flex;flex-direction:column;justify-content:center;gap:7px}
+.ra-fig .ra-browser{flex:none}
+.ra-fig .ra-pr{padding:12px 9px}
+.ra-fig .ra-agent{height:42px}
+.ra-fig .ra-input{padding-top:16px;padding-bottom:16px}
+.ra-fig .ra-left-column, .ra-fig .ra-build-column, .ra-fig .ra-verify-column{min-height:0}
+.ra-fig .ra-browsers{display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:none;align-items:start;margin-top:9px}
+.ra-fig .ra-browser{min-width:0}
+.ra-fig .ra-browser-top{height:13px;padding:0 4px;gap:2px}
+.ra-fig .ra-browser-top .ra-dot{width:2px;height:2px}
+.ra-fig .ra-address{font-size:5px;margin-left:2px;padding:1px 2px;gap:2px}
+.ra-fig .ra-address .ra-icon{display:none}
+.ra-fig .ra-first .ra-viewport, .ra-fig .ra-second .ra-viewport{height:61px}
+.ra-fig .ra-first .ra-frame, .ra-fig .ra-second .ra-frame{margin-top:0;width:100%}
+.ra-fig .ra-first .ra-cursor{top:43%;left:31%}
+.ra-fig .ra-second .ra-cursor{top:55%;left:22%}
+.ra-fig .ra-cursor{width:11px;height:12px}
+.ra-fig .ra-verify-column>.ra-verifier{flex:none;padding:9px 8px}
+.ra-fig .ra-verify-column>.ra-workflow{margin-bottom:0}
+.ra-fig .ra-verify-column>.ra-down{flex:1;min-height:20px}
+.ra-fig .ra-left-column>.ra-input .ra-divider{margin-top:18px}
+.ra-fig .ra-left-column>.ra-input{justify-content:space-between}
+.ra-fig .ra-left-column>.ra-down, .ra-fig .ra-build-column>.ra-down{height:23px}
+.ra-fig .ra-build-column .ra-trace{gap:1px;padding:9px 6px}
+.ra-fig .ra-build-column>.ra-sandbox{padding:10px 8px}
+.ra-fig .ra-status h2{padding-top:8px;padding-bottom:6px}
+.ra-fig .ra-pr{padding:10px 9px}
+.ra-fig .ra-agent{height:42px}
+.ra-fig code, .ra-fig .ra-result code{background:none;padding:0;border-radius:0}
+.ra-fig .ra-status h2{padding:7px 8px 5px}
+.ra-fig .ra-status-row{padding:4px 6px;font-size:7.8px;line-height:1.25}
+.ra-fig .ra-status-badge{padding:2px}
+.ra-fig .ra-status .ra-fail-row span{white-space:nowrap}
+.ra-fig .ra-status{border-radius:6px}
+.ra-fig .ra-workflow li{margin:4px 0}
+.ra-fig .ra-down .ra-icon, .ra-fig .ra-verify-column .ra-down .ra-icon, .ra-fig .ra-result-arrow .ra-icon{width:18px;height:18px;stroke-width:1.6;color:#000;flex:none}
+.ra-fig .ra-connectors>path{stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.ra-fig .ra-sandbox, .ra-fig .ra-pr, .ra-fig .ra-verifier, .ra-fig .ra-workflow.ra-separate, .ra-fig .ra-status{background:#fff}
+.ra-fig .ra-workflow.ra-separate{box-shadow:none}
+.ra-fig .ra-workflow.ra-separate::after{background:#fff}
+.ra-fig .ra-fail-row, .ra-fig .ra-fail-row .ra-status-badge{background:#fff}
+.ra-fig .ra-agent{background:#e7f1ff}
+.ra-fig .ra-down .ra-icon, .ra-fig .ra-verify-column .ra-down .ra-icon{width:13px;height:13px;stroke-width:1.6}
+.ra-fig .ra-connectors>path{stroke-width:.84}
+.ra-fig .ra-left-column>.ra-down, .ra-fig .ra-build-column>.ra-down{height:18px}
+.ra-fig .ra-verify-column>.ra-down{height:14px;min-height:14px;flex:none}
+.ra-fig .ra-verify-column{align-self:start}
+.ra-fig .ra-verifier{padding:7px!important}
+.ra-fig .ra-browsers{margin-top:6px;gap:4px}
+.ra-fig .ra-first .ra-viewport, .ra-fig .ra-second .ra-viewport{height:54px}
+.ra-fig .ra-workflow.ra-separate{padding:7px 9px}
+.ra-fig .ra-workflow h2{margin-bottom:5px}
+.ra-fig .ra-workflow li{margin:2px 0}
+.ra-fig .ra-status h2{padding:6px 8px 4px}
+.ra-fig .ra-status-row{padding:4px 6px}
+.ra-fig .ra-trace{font-size:8px;line-height:1.4;gap:0!important;justify-content:flex-start!important;padding:7px 6px}
+.ra-fig .ra-trace .ra-cmd{margin:0}
+.ra-fig .ra-trace .ra-out{margin-top:7px}
+.ra-fig .ra-sandbox-label{margin-bottom:7px}
+.ra-fig .ra-pr{padding:9px}
+.ra-fig .ra-input{padding:13px 15px}
+.ra-fig .ra-input .ra-tree{gap:8px}
+.ra-fig .ra-left-column>.ra-input .ra-divider{margin:13px 0 9px}
+.ra-fig .ra-agent{height:37px}
+.ra-fig .ra-flow{align-items:stretch}
+.ra-fig .ra-build-column>.ra-sandbox, .ra-fig .ra-build-column>.ra-pr, .ra-fig .ra-verify-column>.ra-workflow, .ra-fig .ra-verify-column>.ra-verifier, .ra-fig .ra-verify-column>.ra-status{background:#f2f3f5;border:0;box-shadow:none;border-radius:10px}
+.ra-fig .ra-workflow.ra-separate{clip-path:none;background:#f2f3f5;border:0;border-radius:10px}
+.ra-fig .ra-workflow.ra-separate::after{display:none}
+.ra-fig .ra-left-column, .ra-fig .ra-build-column, .ra-fig .ra-verify-column{align-self:stretch;min-height:0}
+.ra-fig .ra-verify-column>.ra-down{flex:1;min-height:14px}
+.ra-fig .ra-verify-column>.ra-verifier{flex:none}
+.ra-fig .ra-left-column>.ra-input{justify-content:flex-start}
+.ra-fig .ra-left-column>.ra-input .ra-divider{margin-top:auto}
+.ra-fig .ra-input .ra-tree{margin-bottom:14px}
+.ra-fig .ra-left-column>.ra-input .ra-prompt{margin-bottom:0}
+.ra-fig .ra-build-column>.ra-sandbox{flex:1;padding:10px 8px}
+.ra-fig .ra-build-column .ra-terminal{flex:1}
+.ra-fig .ra-trace{justify-content:center!important;font-size:8px;line-height:1.4;padding:8px 6px}
+.ra-fig .ra-trace .ra-cmd{white-space:normal}
+.ra-fig .ra-pr{padding:10px 9px}
+.ra-fig .ra-status .ra-fail-row{background:transparent;border:0}
+.ra-fig .ra-status .ra-pass-row{border:0}
+.ra-fig .ra-status .ra-status-badge{border:0}
+.ra-fig .ra-status .ra-fail-row .ra-status-badge{background:transparent}
+.ra-fig .ra-status h2{padding-top:8px}
+.ra-fig .ra-workflow.ra-separate{padding:9px}
+.ra-fig .ra-verifier{padding:9px!important}
+.ra-fig .ra-browsers{margin-top:7px}
+.ra-fig .ra-status-row{padding:5px 6px}
+.ra-fig .ra-flow{align-items:stretch}
+.ra-fig .ra-workflow.ra-separate{padding:9px}
+.ra-fig .ra-workflow ol{background:#fff;border:0;border-radius:5px;margin:8px 0 0;padding:8px 8px 8px 22px;line-height:1.5}
+.ra-fig .ra-workflow li{padding-left:1px;margin:2px 0}
+.ra-fig .ra-status{padding:9px}
+.ra-fig .ra-status h2{padding:0;margin:0 0 8px}
+.ra-fig .ra-outcome-panel{background:#fff;border:0;border-radius:5px;overflow:hidden}
+.ra-fig .ra-outcome-panel .ra-status-row{padding:6px 5px}
+.ra-fig .ra-outcome-panel .ra-fail-row{background:#fff}
+.ra-fig .ra-outcome-panel .ra-pass-row{background:#edf8f0}
+.ra-fig .ra-verify-column>.ra-down{min-height:14px}
+.ra-fig .ra-workflow .ra-todo-list{list-style:none;background:#fff;border:0;border-radius:5px;margin:8px 0 0;padding:8px 9px;font-size:8px;line-height:1.5}
+.ra-fig .ra-workflow .ra-todo-list li{display:flex;align-items:center;gap:6px;margin:3px 0;padding:0}
+.ra-fig .ra-todo-box{display:block;width:9px;height:9px;border:1px solid #000;border-radius:2px;flex:none;background:#fff}
+.ra-fig .ra-workflow .ra-todo-list, .ra-fig .ra-outcome-panel{border:1px solid #d8dfe7;border-radius:5px}
+.ra-fig .ra-verify-column{align-self:start}
+.ra-fig .ra-verify-column>.ra-down{flex:none;height:12px;min-height:12px}
+.ra-fig .ra-workflow.ra-separate{padding:7px 8px}
+.ra-fig .ra-workflow h2{margin-bottom:0}
+.ra-fig .ra-workflow .ra-todo-list{margin-top:6px;padding:5px 8px}
+.ra-fig .ra-workflow .ra-todo-list li{margin:2px 0}
+.ra-fig .ra-verify-column>.ra-verifier{padding:7px 8px!important}
+.ra-fig .ra-verifier .ra-browsers{margin-top:5px}
+.ra-fig .ra-status{padding:7px 8px}
+.ra-fig .ra-status h2{margin-bottom:6px}
+.ra-fig .ra-outcome-panel .ra-status-row{padding:4px 5px}
+.ra-fig .ra-flow{align-items:stretch}
+.ra-fig .ra-left-column, .ra-fig .ra-build-column, .ra-fig .ra-verify-column{align-self:stretch;min-height:0}
+.ra-fig .ra-left-column>.ra-input{flex:none;padding:11px 13px;justify-content:flex-start}
+.ra-fig .ra-input .ra-tree{margin-top:10px;margin-bottom:0;gap:7px 5px}
+.ra-fig .ra-left-column>.ra-input .ra-divider{margin:12px 0 10px}
+.ra-fig .ra-input .ra-prompt{font-size:13px;line-height:1.35;margin-top:7px}
+.ra-fig .ra-left-column>.ra-down{height:15px;flex:none}
+.ra-fig .ra-left-column>.ra-agent{height:36px;flex:none}
+.ra-fig .ra-hidden-bug{background:#f2f3f5;border-radius:10px;padding:10px 11px;margin-top:12px;flex:1}
+.ra-fig .ra-hidden-bug h2{font-size:13px;font-weight:700;line-height:1.2;letter-spacing:-.2px;color:#000;margin:0 0 7px}
+.ra-fig .ra-hidden-bug p{font-size:10px;line-height:1.4;color:#000;margin:0}
+.ra-fig .ra-build-column>.ra-sandbox{flex:1}
+.ra-fig .ra-verify-column>.ra-down{flex:none;height:12px;min-height:12px}
+.ra-fig .ra-verify-column>.ra-verifier{flex:1;display:flex;flex-direction:column;justify-content:center}
+.ra-fig .ra-verify-column>.ra-verifier .ra-browsers{flex:1;align-items:center}
+.ra-fig .ra-verify-column>.ra-workflow, .ra-fig .ra-verify-column>.ra-status{flex:none}
+.ra-fig .ra-workflow .ra-todo-list li{gap:6px;margin:3px 0}
+.ra-fig .ra-workflow .ra-todo-list .ra-icon{width:11px;height:11px;flex:none;color:#000;stroke-width:1.6}
+.ra-fig .ra-hidden-bug h2{display:flex;align-items:center;gap:5px;font-size:12px}
+.ra-fig .ra-hidden-bug h2 .ra-icon{width:14px;height:14px;flex:none}
+.ra-fig .ra-left-column>.ra-input{padding:10px 12px}
+.ra-fig .ra-input h2{font-size:12px}
+.ra-fig .ra-input h2 .ra-icon{width:14px;height:14px}
+.ra-fig .ra-input .ra-tree{font-size:9px;gap:6px 5px;margin-top:8px}
+.ra-fig .ra-input .ra-file .ra-icon{width:11px;height:11px}
+.ra-fig .ra-left-column>.ra-input .ra-divider{margin:10px 0 8px}
+.ra-fig .ra-input .ra-prompt{font-size:10px;line-height:1.4;margin-top:6px}
+.ra-fig .ra-hidden-bug{flex:none}
+.ra-fig .ra-left-column{justify-content:space-between}
+.ra-fig .ra-left-column>.ra-down{height:15px}
+.ra-fig .ra-hidden-bug{margin-top:10px}
+.ra-fig .ra-down .ra-icon, .ra-fig .ra-verify-column .ra-down .ra-icon{width:10px;height:10px;stroke-width:1.6}
+.ra-fig .ra-connectors>path{stroke-width:.67}
+.ra-fig .ra-hidden-bug{background:#232830;color:#fff}
+.ra-fig .ra-hidden-bug h2, .ra-fig .ra-hidden-bug p, .ra-fig .ra-hidden-bug .ra-icon{color:#fff}
+.ra-fig .ra-agent-logo{width:20px;height:21px;object-fit:contain;flex:none}
+.ra-fig .ra-left-column>.ra-input{padding:8px 11px}
+.ra-fig .ra-input .ra-tree{margin-top:6px;gap:4px 5px}
+.ra-fig .ra-left-column>.ra-input .ra-divider{margin:7px 0 6px}
+.ra-fig .ra-input .ra-prompt{margin-top:4px;line-height:1.3}
+.ra-fig .ra-left-column>.ra-down, .ra-fig .ra-build-column>.ra-down{height:12px;flex:none}
+.ra-fig .ra-left-column>.ra-agent{height:32px}
+.ra-fig .ra-hidden-bug{margin-top:7px;padding:8px 10px}
+.ra-fig .ra-hidden-bug h2{margin-bottom:5px}
+.ra-fig .ra-hidden-bug p{line-height:1.3}
+.ra-fig .ra-build-column>.ra-sandbox{padding:8px 7px}
+.ra-fig .ra-sandbox-label{margin-bottom:5px}
+.ra-fig .ra-bar{height:13px}
+.ra-fig .ra-trace{padding:5px 6px;line-height:1.25}
+.ra-fig .ra-trace .ra-out{margin-top:5px}
+.ra-fig .ra-build-column>.ra-pr{padding:8px}
+.ra-fig .ra-diff{margin-top:5px;line-height:1.4}
+.ra-fig .ra-diff div{padding:2px 5px}
+.ra-fig .ra-workflow.ra-separate{padding:7px 8px}
+.ra-fig .ra-workflow .ra-todo-list{margin-top:5px;padding:5px 7px}
+.ra-fig .ra-workflow .ra-todo-list li{margin:1px 0;line-height:1.35}
+.ra-fig .ra-verify-column>.ra-down{height:10px;min-height:10px;flex:none}
+.ra-fig .ra-verify-column>.ra-verifier{padding:7px!important}
+.ra-fig .ra-verifier .ra-browsers{margin-top:5px}
+.ra-fig .ra-first .ra-viewport, .ra-fig .ra-second .ra-viewport{height:49px}
+.ra-fig .ra-status{padding:7px 8px}
+.ra-fig .ra-status h2{margin-bottom:5px}
+.ra-fig .ra-outcome-panel .ra-status-row{padding:4px 5px;line-height:1.15}
+.ra-fig .ra-status-badge{padding:1px 2px}
+.ra-fig .ra-flow{grid-template-columns:214px 16px 242px 12px 236px}
+.ra-fig .ra-verifier-cursor-icon{width:16px;height:17px;object-fit:contain;flex:none}
+.ra-fig .ra-flow{grid-template-columns:212px 16px 240px 16px 236px}
+.ra-fig .ra-verifier-cursor-icon{filter:none;width:16px;height:16px}
+.ra-fig .ra-hidden-bug{background:#fff;border:1px solid #000;color:#000}
+.ra-fig .ra-hidden-bug h2, .ra-fig .ra-hidden-bug p, .ra-fig .ra-hidden-bug .ra-icon{color:#000}
+.ra-s .ra-fig { position: absolute; left: 80px; top: 219px; width: 720px; transform-origin: 0 0;
+  transform: scale(2.0); transition: transform 1.2s var(--ease); }
+.ra-fig .ra-main { width: 720px; margin: 0; padding: 0; }
+.ra-fig .ra-left-column, .ra-fig .ra-build-column, .ra-fig .ra-connectors { transition: opacity .6s ease; }
+.ra-zoom .ra-fig { transform: translate(-724.8px, -47px) scale(2.4); }
+.ra-side .ra-fig { transform: translate(-1141.6px, -47px) scale(2.4); }
+.ra-zoom .ra-fig .ra-left-column, .ra-zoom .ra-fig .ra-build-column, .ra-zoom .ra-fig .ra-connectors { opacity: 0; }
+.ra-fig .rise.frag-hidden { transform: translateY(6px); }
+
+.ra-tab { position: absolute; left: 725px; top: 503px; transform: translateY(-50%); width: 775px; font-size: 22px; color: var(--text); }
+.ra-tab.frag-hidden { transform: translateY(-50%); }
+.ra-tab .ra-grp, .ra-tab .ra-hd, .ra-tab .ra-row { display: grid; grid-template-columns: 250px 131px 131px 131px 131px; align-items: center; }
+.ra-tab .ra-grp > div, .ra-tab .ra-hd > div, .ra-tab .ra-row > div:not(.ra-cfg) { text-align: center; }
+.ra-tab .ra-grp { font-size: 24px; font-weight: 600; }
+.ra-tab .ra-grp > div:not(:empty) { margin: 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--text); }
+.ra-tab .ra-span2 { grid-column: span 2; }
+.ra-tab .ra-hd { font-size: 20px; padding: 10px 0 14px; line-height: 1.25; }
+.ra-tab .ra-row { height: 112px; border-top: 1px solid var(--faint); }
+.ra-tab .ra-ideal { height: 84px; font-size: 28px; font-weight: 600; color: var(--text); border-top: 0; }
+.ra-tab .ra-ideal .ra-cfg { color: var(--text); font-size: 22px; }
+.ra-tab .ra-cfg { display: flex; align-items: center; gap: 16px; }
+.ra-tab .ra-cfg img { width: 40px; height: 40px; flex: none; }
+.ra-tab .ra-cfg b { display: block; font-size: 24px; font-weight: 600; }
+.ra-tab .ra-cfg span { display: block; font-size: 20px; margin-top: 2px; }
+.ra-tab .ra-v { justify-self: center; font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums;
+  background: var(--c-green-soft); color: var(--text); border-radius: 12px; padding: 6px 12px; min-width: 112px; text-align: center; }

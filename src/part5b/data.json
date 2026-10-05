@@ -1,0 +1,282 @@
+{
+ "domains": [
+  {
+   "domain": "Content & knowledge",
+   "label": "Content & knowledge",
+   "tasks": 40,
+   "color": "#2a78d6",
+   "examples": [
+    {
+     "product": "Ghost",
+     "github_stars": 55424
+    },
+    {
+     "product": "Outline",
+     "github_stars": 40697
+    }
+   ]
+  },
+  {
+   "domain": "IT, security & developer tools",
+   "label": "IT, security & dev tools",
+   "tasks": 35,
+   "color": "#eb6834",
+   "examples": [
+    {
+     "product": "Uptime Kuma",
+     "github_stars": 91798
+    },
+    {
+     "product": "NocoDB",
+     "github_stars": 65064
+    }
+   ]
+  },
+  {
+   "domain": "Collaboration & communication",
+   "label": "Collaboration & communication",
+   "tasks": 31,
+   "color": "#1baf7a",
+   "examples": [
+    {
+     "product": "Focalboard",
+     "github_stars": 26486
+    },
+    {
+     "product": "listmonk",
+     "github_stars": 23566
+    }
+   ]
+  },
+  {
+   "domain": "Files, media & sharing",
+   "label": "Files, media & sharing",
+   "tasks": 29,
+   "color": "#eda100",
+   "examples": [
+    {
+     "product": "Stirling-PDF",
+     "github_stars": 92964
+    },
+    {
+     "product": "AList",
+     "github_stars": 50224
+    }
+   ]
+  },
+  {
+   "domain": "Finance & business operations",
+   "label": "Finance & business",
+   "tasks": 28,
+   "color": "#e87ba4",
+   "examples": [
+    {
+     "product": "Maybe",
+     "github_stars": 54266
+    },
+    {
+     "product": "Actual",
+     "github_stars": 29137
+    }
+   ]
+  },
+  {
+   "domain": "Personal productivity & lifestyle",
+   "label": "Personal & lifestyle",
+   "tasks": 22,
+   "color": "#008300",
+   "examples": [
+    {
+     "product": "Memos",
+     "github_stars": 63321
+    },
+    {
+     "product": "SiYuan",
+     "github_stars": 46493
+    }
+   ]
+  },
+  {
+   "domain": "Commerce & payments",
+   "label": "Commerce & payments",
+   "tasks": 15,
+   "color": "#4a3aa7",
+   "examples": [
+    {
+     "product": "Bagisto",
+     "github_stars": 28169
+    },
+    {
+     "product": "EverShop",
+     "github_stars": 10491
+    }
+   ]
+  }
+ ],
+ "stars_source": "analysis/task_domains/repo_stars.csv (GitHub stargazer counts scraped 2026-09-25)",
+ "median_stars": 4558,
+ "repos_with_stars": 199,
+ "panels": [
+  {
+   "caption": [
+    "(1) Log in as",
+    "miraDunn"
+   ],
+   "frame": "01-login",
+   "region": [
+    730,
+    145,
+    465,
+    410
+   ],
+   "point": [
+    960,
+    360
+   ]
+  },
+  {
+   "caption": [
+    "(2) Add board →",
+    "Create empty board"
+   ],
+   "frame": "03-empty",
+   "region": [
+    1225,
+    625,
+    220,
+    90
+   ],
+   "point": [
+    1335,
+    667
+   ]
+  },
+  {
+   "caption": [
+    "(3) Name the board"
+   ],
+   "frame": "04-name",
+   "region": [
+    255,
+    65,
+    450,
+    95
+   ],
+   "point": [
+    410,
+    96
+   ]
+  },
+  {
+   "caption": [
+    "(4) Open Share"
+   ],
+   "frame": "06-share",
+   "region": [
+    655,
+    318,
+    610,
+    170
+   ],
+   "point": [
+    1840,
+    96
+   ]
+  },
+  {
+   "caption": [
+    "(5) Search for and",
+    "select @kadeRue"
+   ],
+   "frame": "08-select",
+   "region": [
+    680,
+    405,
+    555,
+    110
+   ],
+   "point": [
+    835,
+    455
+   ]
+  },
+  {
+   "caption": [
+    "(6) Confirm kadeRue",
+    "appears as a member"
+   ],
+   "frame": "09-member",
+   "region": [
+    682,
+    530,
+    550,
+    66
+   ],
+   "point": null
+  },
+  {
+   "caption": [
+    "(7) Close Share",
+    "and log out"
+   ],
+   "frame": "12-logout",
+   "region": [
+    0,
+    50,
+    245,
+    265
+   ],
+   "point": [
+    70,
+    218
+   ]
+  },
+  {
+   "caption": [
+    "(8) Log in as",
+    "kadeRue and refresh"
+   ],
+   "frame": "13-recipient-login",
+   "region": [
+    730,
+    145,
+    465,
+    410
+   ],
+   "point": [
+    960,
+    360
+   ]
+  },
+  {
+   "caption": [
+    "Fail: board missing",
+    "from recipient",
+    "sidebar"
+   ],
+   "frame": "15-fail",
+   "region": [
+    0,
+    171,
+    240,
+    80
+   ],
+   "point": null
+  },
+  {
+   "caption": [
+    "Pass: board listed",
+    "in recipient",
+    "sidebar"
+   ],
+   "frame": "16-pass",
+   "region": [
+    0,
+    171,
+    240,
+    110
+   ],
+   "point": null
+  }
+ ]
+}

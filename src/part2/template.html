@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>General Talk, Part 2</title>
+<style>
+@font-face { font-family: "Inter"; src: url("data:font/woff2;base64,{{INTER}}") format("woff2"); font-weight: 100 900; }
+@font-face { font-family: "JetBrains Mono"; src: url("data:font/woff2;base64,{{JBM}}") format("woff2"); font-weight: 400; }
+
+/* tonychen.xyz palette */
+:root {
+  --bg: #ffffff;
+  --text: #1f2328;
+  --muted: #6b7177;
+  --faint: #d8dde2;
+  --accent: #286ee0;
+  --mark: #fef4ad;
+  --ease: cubic-bezier(.65, 0, .35, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); overflow: hidden; }
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+  font-feature-settings: "ss01", "cv11";
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+}
+.mono { font-family: "JetBrains Mono", "SFMono-Regular", Menlo, monospace; }
+
+/* 1600x900 stage, scaled to fit */
+#stage {
+  position: absolute; left: 50%; top: 50%;
+  width: 1600px; height: 900px;
+  transform-origin: 0 0;
+}
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; visibility: hidden;
+  transition: opacity .6s ease, visibility 0s linear .6s;
+}
+.slide.active { opacity: 1; visibility: visible; transition: opacity .6s ease .15s, visibility 0s; }
+
+/* fragments */
+[data-in], [data-out] { transition: opacity .6s ease, transform .6s var(--ease); }
+.frag-hidden { opacity: 0 !important; pointer-events: none; }
+.rise.frag-hidden { transform: translateY(14px); }
+
+/* ---------- title slides ---------- */
+.temo { font-size: 72px; line-height: 1; margin-top: 28px; }
+.title {
+  position: absolute; left: 80px; right: 80px; top: 0; bottom: 0;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+}
+.title h1 { white-space: nowrap; font-size: 64px; font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
+.title .by { margin-top: 36px; font-size: 28px; color: var(--muted); }
+.title .by b { color: var(--text); font-weight: 600; }
+
+/* =====================================================================
+   PART 2 · CEO-Bench   (all classes prefixed c- to merge cleanly with part 1)
+   ===================================================================== */
+:root {
+  --ink: #0a2540;
+  --c-green: #00875a; --c-green-soft: #d6f5e6;
+  --c-blue: #2f6df6;  --c-blue-soft: #d8e6ff;
+  --c-amber: #b15c00; --c-amber-soft: #ffe9c9;
+  --c-pink: #b8326b;  --c-pink-soft: #fde2ec;
+  --c-red: #cd3500;   --c-red-soft: #ffe2d8;
+  --c-panel: #eaf6ee;
+}
+.c-h { position: absolute; left: 100px; top: 72px; font-size: 40px; font-weight: 600; letter-spacing: -.02em; }
+.p2 { --muted: var(--text); }
+.c-kicker { position: absolute; left: 100px; top: 26px; font-size: 28px; font-weight: 500; color: var(--text); }
+.c-cap { font-size: 15px; color: var(--muted); }
+.c-src { position: absolute; left: 100px; bottom: 34px; font-size: 14px; color: var(--muted); }
+.c-src b { color: var(--accent); font-weight: 400; }
+
+.title .c-aka { color: var(--text); margin-top: 30px; font-size: 44px; }
+.c-logo { width: 120px; height: auto; margin-top: 30px; }
+
+/* ---------- moving parts figure + zoom ---------- */
+.c-lines { position: absolute; left: 100px; top: 330px; width: 520px; }
+.c-lines div { display: flex; gap: 20px; align-items: baseline; font-size: 30px; line-height: 1.3; font-weight: 500; letter-spacing: -.01em; margin-bottom: 42px; }
+.c-lines .e { font-size: 34px; }
+.c-acclip { position: absolute; inset: 0; clip-path: inset(0 0 0 0); transition: clip-path 1s var(--ease); }
+.c-acwrap { position: absolute; left: 0; top: 0; width: 648px; height: 486px; transform-origin: 0 0;
+  transform: translate(660px, 150px) scale(1.36); transition: transform 1.1s var(--ease); }
+.c-acwrap .node, .c-acwrap .agent-card, .c-acwrap .connectors { transition: opacity .8s ease; }
+.zp .c-acclip { clip-path: inset(0 930px 0 0); }
+.zp .c-acwrap { transform: translate(-117.5px, 167.5px) scale(2.5); }
+.zg .c-acwrap { transform: translate(-190px, 377.5px) scale(2.5); }
+.zq .c-acwrap { transform: translate(-935px, -37.5px) scale(2.5); }
+.ze .c-acwrap { transform: translate(-582.5px, -540px) scale(2.5); }
+.zc .c-acwrap { transform: translate(-1087.5px, 182.5px) scale(2.5); }
+.zp .c-acwrap .node, .zp .c-acwrap .agent-card, .zp .c-acwrap .connectors { opacity: .1; }
+.zp:not(.zg) .c-acwrap .n-pricing,
+.zg:not(.zq) .c-acwrap .n-growth,
+.zq:not(.ze) .c-acwrap .n-product,
+.ze:not(.zc) .c-acwrap .n-enterprise,
+.zc .c-acwrap .n-competitors { opacity: 1; }
+.c-zp { position: absolute; left: 720px; top: 110px; width: 820px; height: 720px; }
+.c-zp h3 { white-space: nowrap; font-size: 36px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 40px; }
+
+/* pricing */
+.c-plans { display: flex; gap: 34px; }
+.c-plan { width: 230px; height: 360px; border: 2px solid var(--ink); border-radius: 18px; overflow: hidden; position: relative; }
+.c-plan .hd { background: var(--c-panel); border-bottom: 2px solid var(--ink); padding: 16px 20px; font-size: 26px; font-weight: 700; }
+.c-plan .hd span { display: block; font-size: 15px; font-weight: 400; color: var(--muted); margin-top: 4px; }
+.c-plan .track { position: absolute; left: 50%; top: 116px; bottom: 34px; width: 6px; margin-left: -3px; background: #eef1f4; border-radius: 3px; }
+.c-plan .knob { position: absolute; left: 50%; width: 110px; height: 52px; margin-left: -55px; border-radius: 26px; background: #fff;
+  border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 600; color: var(--accent);
+  top: var(--k0); animation: none; }
+.zp:not(.zg) .c-plan .knob { animation: c-knob 3.2s var(--ease) infinite alternate; }
+@keyframes c-knob { 0% { top: var(--k0); } 50% { top: var(--k1); } 100% { top: var(--k2); } }
+.c-code { margin-top: 34px; font-size: 21px; color: var(--ink); background: #f6f8fa; border-radius: 10px; padding: 14px 18px; display: inline-block; }
+.c-code .f { color: var(--accent); } .c-code .n { color: #b15c00; }
+
+/* growth heatmap */
+.c-heat { display: grid; grid-template-columns: 210px repeat(5, 116px); gap: 8px; align-items: stretch; }
+.c-heat .ch { font-size: 17px; text-align: center; line-height: 1.25; padding-bottom: 6px; align-self: end; }
+.c-heat .ch b { display: block; font-size: 30px; font-weight: 400; margin-bottom: 4px; }
+.c-heat .rh { font-size: 19px; font-weight: 500; display: flex; align-items: center; gap: 10px; line-height: 1.2; }
+.c-heat .rh b { font-size: 30px; font-weight: 400; }
+.c-cell { position: relative; height: 96px; border-radius: 12px; border: 1.5px solid var(--faint); overflow: hidden; background: #fff; }
+.c-cell .bud { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--ink); transition: opacity .5s ease; }
+.c-cell .bud i { font-style: normal; font-size: 14px; color: var(--muted); margin-left: 3px; }
+.c-cell .ht { position: absolute; inset: 0; background: rgba(0, 135, 90, var(--h)); opacity: 0; transition: opacity .8s ease var(--d);
+  display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: var(--hc); }
+.c-revealed .c-cell .ht { opacity: 1; }
+.c-revealed .c-cell .bud { opacity: 0; }
+.c-hidden-tag { margin-top: 26px; font-size: 22px; display: flex; gap: 14px; align-items: center; }
+.c-hidden-tag .pill { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; border: 2px dashed var(--text); color: var(--text); border-radius: 999px; padding: 6px 16px; font-weight: 600; }
+
+/* quality */
+.c-qchart { position: relative; width: 820px; height: 380px; }
+.c-qchart svg { position: absolute; inset: 0; overflow: visible; }
+.c-qchart text { font-family: "Inter", sans-serif; }
+.c-draw { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s var(--ease) var(--d, 0s); }
+.zq .c-draw.q, .c-on .c-draw { stroke-dashoffset: 0; }
+.c-rd { display: flex; align-items: center; gap: 16px; margin-top: 36px; font-size: 24px; }
+.c-rd .bx { border: 2px solid var(--ink); border-radius: 12px; padding: 10px 18px; background: #fff; white-space: nowrap; }
+.c-rd .ar { color: var(--muted); font-size: 22px; white-space: nowrap; }
+.c-ql { transition: opacity .6s ease, transform 1.4s var(--ease) 2.4s !important; }
+.c-rd2 .c-ql { transform: translateY(var(--dy)); }
+.c-rdanim { position: relative; display: flex; align-items: center; gap: 28px; margin-top: 34px; margin-left: 80px; height: 110px; }
+.c-clock { flex: 0 0 auto; }
+.c-hand { transform-origin: 50px 50px; transform-box: view-box; }
+.c-rd2 .c-hand { animation: c-spin 1.2s linear 2; }
+@keyframes c-spin { to { transform: rotate(360deg); } }
+.c-money { position: absolute; left: 40px; top: 0; width: 140px; height: 100px; pointer-events: none; }
+.c-money span { position: absolute; left: calc(var(--i) * 24px); bottom: 0; font-size: 40px; opacity: 0; }
+.c-rd2 .c-money span { animation: c-fly 1.1s ease-out calc(var(--i) * .3s) 2 both; }
+@keyframes c-fly { 0% { opacity: 0; transform: translate(0, 10px); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(30px, -120px) rotate(-15deg); } }
+.c-rdlab { display: flex; flex-direction: column; gap: 4px; font-size: 22px; }
+.c-rdlab b { font-size: 28px; font-weight: 600; }
+.c-rdlab .c-up { opacity: 0; transition: opacity .6s ease 2.6s; font-weight: 600; }
+.c-rd2 .c-rdlab .c-up { opacity: 1; }
+.c-chip { border: 1.5px solid var(--faint); border-radius: 999px; padding: 8px 18px; background: #f6f8fa; white-space: nowrap; }
+
+/* enterprise */
+.c-chat { width: 560px; display: flex; flex-direction: column; gap: 18px; }
+.c-msg { max-width: 470px; padding: 14px 20px; border-radius: 18px; font-size: 21px; line-height: 1.35; opacity: 0; transform: translateY(10px);
+  transition: opacity .5s ease var(--d), transform .5s var(--ease) var(--d); }
+.c-msg .who { display: block; font-size: 14px; color: var(--muted); margin-bottom: 4px; }
+.c-msg.me { align-self: flex-end; background: #eaf1fc; border-bottom-right-radius: 6px; }
+.c-msg.them { align-self: flex-start; background: #f3f4f6; border-bottom-left-radius: 6px; }
+.ze .c-msg { opacity: 1; transform: none; }
+.c-locks { position: absolute; left: 600px; top: 96px; width: 220px; display: flex; flex-direction: column; gap: 22px; }
+.c-lock { border: 2px dashed var(--text); border-radius: 14px; padding: 16px; font-size: 19px; line-height: 1.3; text-align: center; }
+.c-lock b { display: flex; justify-content: center; font-size: 34px; margin-bottom: 6px; font-weight: 400; }
+.c-lock .q { display: block; margin-top: 8px; font-size: 30px; color: var(--text); font-weight: 700; }
+
+/* ---------- teaser (scoped copy of the paper figure) ---------- */
+.c-tz { position: absolute; left: 65px; top: 205px; width: 980px; transform: scale(1.495); transform-origin: 0 0; }
+.c-tz [data-in].frag-hidden { transform: translateY(8px); }
+{{TEASER_CSS}}
+
+/* ---------- rigor slides ---------- */
+.c-tabs { position: absolute; right: 100px; top: 78px; display: flex; gap: 10px; }
+.c-tabs span { width: 40px; height: 40px; border-radius: 10px; border: 1.5px solid var(--faint); color: var(--muted); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.c-tabs span.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+.c-sub { position: absolute; left: 100px; top: 136px; font-size: 24px; color: var(--muted); }
+
+/* (a) groups */
+.c-groups { position: absolute; left: 100px; top: 196px; width: 800px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.c-g { border: 2px solid var(--ink); border-radius: 14px; overflow: hidden; background: #fff; height: 284px; position: relative; }
+.c-g .gh { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 2px solid var(--ink); font-size: 20px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.c-g .gh b { font-size: 26px; font-weight: 400; }
+.c-g.g1 .gh { background: var(--c-green-soft); } .c-g.g2 .gh { background: var(--c-blue-soft); }
+.c-g.g3 .gh { background: var(--c-amber-soft); } .c-g.g4 .gh { background: var(--c-pink-soft); }
+.c-g.g1 { --gc: var(--c-green); } .c-g.g2 { --gc: var(--c-blue); } .c-g.g3 { --gc: var(--c-amber); } .c-g.g4 { --gc: var(--c-pink); }
+.c-g .rows { padding: 8px 16px; position: relative; }
+.c-cust { display: grid; grid-template-columns: 28px 26px 1fr 26px 1fr; gap: 8px; align-items: center; height: 34px; font-size: 18px; }
+.c-cust .bar { height: 8px; border-radius: 4px; background: #eef1f4; overflow: hidden; }
+.c-cust .bar i { display: block; height: 100%; border-radius: 4px; background: var(--gc); }
+.c-veil { position: absolute; left: 50px; right: 6px; top: 4px; bottom: 4px; border-radius: 10px;
+  background: repeating-linear-gradient(135deg, rgba(31,35,40,.09) 0 10px, rgba(255,255,255,.75) 10px 20px);
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; font-size: 34px; }
+.c-hid { position: absolute; left: 100px; top: 832px; font-size: 22px; color: var(--text); font-weight: 600; display: flex; align-items: center; gap: 10px; }
+.c-eyeoff { width: 1.15em; height: 1.15em; flex: none; }
+.c-veil .c-eyeoff { width: 44px; height: 44px; color: var(--text); }
+.c-side { position: absolute; left: 950px; top: 210px; width: 560px; }
+.c-side h4 { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+.c-tbls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 30px; }
+.c-tbls span { border: 1px solid #e6ebf1; border-radius: 8px; padding: 6px 10px; font-size: 16px; background: #fbfdff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.c-tbls span { display: flex; align-items: center; gap: 8px; }
+.c-dbi { width: 15px; height: 15px; flex: 0 0 15px; color: #ff5e3a; }
+.c-dbh { display: flex; align-items: center; gap: 10px; }
+.c-dbl { width: 26px; height: 26px; flex: 0 0 26px; }
+.c-sql { background: #0f1f33; color: #e6edf3; border-radius: 12px; padding: 16px 18px; font-size: 15.5px; line-height: 1.5; white-space: pre; }
+.c-sql .k { color: #ff9b7a; } .c-sql .s { color: #9ecbff; }
+.c-sql-cap { margin-top: 10px; font-size: 15px; color: var(--muted); }
+
+/* (b) price vs quality */
+.c-pq { position: absolute; left: 100px; top: 190px; width: 760px; height: 620px; }
+.c-pq svg { overflow: visible; }
+.c-pq text { font-family: "Inter", sans-serif; }
+.c-reg { transition: opacity .8s ease .6s; }
+.c-dotc { transition: opacity .4s ease var(--d), transform .4s var(--ease) var(--d); transform-box: fill-box; transform-origin: center; }
+.c-dotc.frag-hidden { transform: scale(0); }
+.c-fbi { position: absolute; left: 920px; top: 352px; width: 600px; border: 1.5px solid #d6dbe0; border-radius: 10px; box-shadow: 0 10px 30px -14px rgba(31,35,40,.3); background: #fff; }
+.c-vbt { position: absolute; left: 990px; top: 132px; width: 460px; border: 1.5px solid #d6dbe0; border-radius: 10px; box-shadow: 0 10px 30px -14px rgba(31,35,40,.3); background: #fff; }
+.c-fbi-cap { position: absolute; left: 920px; top: 810px; width: 600px; font-size: 18px; text-align: center; }
+
+/* (c) network */
+.c-net { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; overflow: visible; }
+.c-net .arr { stroke: var(--ink); fill: none; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1s var(--ease) var(--d); }
+.c-net .ah { opacity: 0; transition: opacity .3s ease calc(var(--d) + .8s); }
+.c-arrows .arr { stroke-dashoffset: 0; }
+.c-arrows .ah { opacity: 1; }
+.c-gnode { position: absolute; width: 150px; height: 150px; margin: -75px 0 0 -75px; border-radius: 50%; border: 6px solid var(--gc); background: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 64px; }
+.c-glab { position: absolute; transform: translateX(-50%); border: 3px solid var(--gc); border-radius: 999px; padding: 6px 22px; background: #fff; font-size: 24px; font-weight: 500; white-space: nowrap; }
+.c-noexp { position: absolute; left: 1150px; top: 430px; width: 400px; font-size: 30px; line-height: 1.35; font-weight: 500; }
+
+/* (d) non-stationary */
+.c-ns { position: absolute; left: 400px; top: 215px; width: 800px; }
+.c-nsbox { border: 3px solid var(--bc); border-radius: 18px; padding: 22px 30px; display: flex; gap: 26px; align-items: center; background: #fff; }
+.c-nsbox .ic { font-size: 50px; }
+.c-nsbox .t { font-size: 28px; font-weight: 500; }
+.c-nsbox .v { font-size: 24px; margin-top: 6px; color: var(--ink); }
+.c-nsarr { text-align: center; font-size: 34px; color: var(--ink); height: 58px; line-height: 58px; }
+
+/* code slide */
+.c-fig8 { position: absolute; left: 260px; top: 150px; width: 1080px; }
+.c-codefig { width: 816px; transform: scale(1.3235); transform-origin: 0 0; height: 0; }
+.c-fig8 .c-cap { margin-top: 578px; text-align: center; font-size: 18px; }
+.c-not { position: absolute; left: 0; right: 0; top: 790px; display: flex; justify-content: center; gap: 26px; font-size: 26px; align-items: center; }
+.c-not .x { color: #8a9097; text-decoration: line-through; text-decoration-color: var(--c-red); text-decoration-thickness: 3px; }
+
+/* ---------- leaderboard ---------- */
+.c-lb { position: absolute; inset: 0; }
+.c-lb svg.c-plot { position: absolute; inset: 0; overflow: visible; }
+.c-lb text { font-family: "Inter", sans-serif; }
+.c-scale { transform-box: view-box; transform-origin: 0 780px; transition: transform 1.4s var(--ease); }
+.pF .c-scale { transform: scaleY(0.857142857); }
+.c-ln { fill: none; stroke: #d3d8de; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 2s var(--ease), stroke .6s ease, stroke-width .6s ease; }
+.c-lb .c-ln.frag-hidden { opacity: 1 !important; stroke-dashoffset: 1; transition: stroke-dashoffset 0s, stroke .6s ease; }
+.c-ln.base { stroke: #1f2328; stroke-dasharray: 6 7; stroke-width: 2; transition: none; }
+.c-x { fill: none; stroke: #c9ced4; stroke-width: 2; vector-effect: non-scaling-stroke; }
+{{HL_CSS}}
+.c-ylab { position: absolute; left: 30px; width: 74px; text-align: right; font-size: 16px; color: var(--muted); transform: translateY(-50%);
+  transition: top 1.4s var(--ease), opacity .6s ease; top: var(--y1); }
+.pF .c-ylab { top: var(--y2); }
+.c-ylab.only2 { opacity: 0; } .pF .c-ylab.only2 { opacity: 1; }
+.c-xlab { position: absolute; top: 792px; font-size: 16px; color: var(--muted); transform: translateX(-50%); }
+.c-axt { position: absolute; font-size: 16px; color: var(--muted); }
+.c-blab { position: absolute; left: var(--x, 1140px); transform: translate(-100%, -50%) !important; margin-top: -18px; font-size: 17px; font-weight: 600; transform: translateY(-50%); white-space: nowrap; transition: top 1.4s var(--ease); top: var(--y1); }
+.pF .c-blab { top: var(--y2); }
+.c-date { position: absolute; left: 1250px; top: 150px; font-size: 30px; font-weight: 600; }
+.c-date span { position: absolute; left: 0; top: 0; white-space: nowrap; }
+.c-rank { position: absolute; left: 1250px; top: 216px; width: 300px; }
+.c-rank .rk { position: absolute; left: 0; top: 0; width: 300px; }
+.c-rank h4 { font-size: 15px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 500; margin-bottom: 14px; }
+.c-row { display: grid; grid-template-columns: 30px 14px 1fr; gap: 10px; align-items: center; padding: 9px 0; border-top: 1px solid #eef0f2; font-size: 19px; }
+.c-row .r { color: var(--muted); font-size: 15px; }
+.c-row .d { width: 12px; height: 12px; border-radius: 50%; }
+.c-row .v { grid-column: 3; font-size: 15px; color: var(--muted); margin-top: -6px; }
+.c-row.base { color: var(--muted); }
+.c-row.base .d { width: 16px; height: 0; border-radius: 0; background: none; border-top: 2.5px dashed #1f2328; }
+.c-row.top b { font-weight: 700; }
+.c-callout { position: absolute; font-size: 28px; font-weight: 600; white-space: nowrap; }
+.c-mult { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.c-mult path { fill: none; stroke: #1f2328; stroke-width: 2.5; stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset .8s var(--ease); }
+.c-mult.frag-hidden path { stroke-dashoffset: 1; }
+.c-mlab { position: absolute; transform: translateY(-50%); line-height: 1.1; }
+.c-mlab b { display: block; font-size: 40px; font-weight: 700; letter-spacing: -.02em; }
+.c-mlab span { font-size: 14px; color: var(--muted); }
+.c-omt { position: absolute; inset: 0; background: rgba(255,255,255,.88); display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 600; letter-spacing: -.02em; }
+
+/* ---------- sidebar + controls ---------- */
+.ctl { position: fixed; top: 14px; z-index: 20; width: 40px; height: 40px; border-radius: 10px;
+  border: 1px solid var(--faint); background: rgba(255,255,255,.92); color: var(--text); font-size: 20px; line-height: 1;
+  cursor: pointer; opacity: 0; transition: opacity .3s ease; font-family: inherit; }
+.ctl:hover { background: #f3f5f7; }
+.ctl:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; opacity: 1; }
+#menuBtn { left: 14px; }
+#fsBtn { right: 14px; }
+body.ui .ctl, body.navopen .ctl { opacity: 1; }
+body:not(.navopen) #nav { box-shadow: none; }
+#nav { position: fixed; left: 0; top: 0; bottom: 0; width: 300px; z-index: 15; background: #fff;
+  border-right: 1px solid var(--faint); box-shadow: 0 0 40px -12px rgba(31,35,40,.25);
+  transform: translateX(-100%); transition: transform .35s var(--ease); padding: 70px 12px 20px; overflow-y: auto; }
+body.navopen #nav { transform: none; }
+.navhead { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 0 12px 10px; }
+#nav ol { list-style: none; }
+#nav button { display: flex; flex-direction: column; gap: 8px; width: 100%; text-align: left; border: 0; background: none;
+  padding: 10px 12px; border-radius: 10px; font: inherit; font-size: 15px; color: var(--text); cursor: pointer; }
+#nav .cap { display: flex; gap: 10px; align-items: baseline; }
+#nav .thumb { position: relative; width: 252px; height: 142px; overflow: hidden; border: 1px solid var(--faint);
+  border-radius: 6px; background: #fff; }
+#nav .sub .thumb { width: 220px; height: 124px; }
+#nav .mini { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0;
+  transform: scale(.1575); pointer-events: none; }
+#nav .sub .mini { transform: scale(.1375); }
+#nav .mini, #nav .mini * { transition: none !important; animation: none !important; }
+#nav button.cur .thumb { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+#nav button:hover { background: #f3f5f7; }
+#nav button.cur { background: #eaf1fc; color: var(--accent); }
+#nav button .k { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); min-width: 20px; }
+#nav button.sub { padding-left: 44px; font-size: 14px; color: var(--muted); }
+#pnum { position: absolute; right: 56px; bottom: 36px; font-size: 16px; color: var(--muted); font-variant-numeric: tabular-nums; }
+#pnum[hidden] { display: none; }
+#nav button.sub.cur { color: var(--accent); background: none; }
+body:not(.ui):not(.navopen) { cursor: none; }
+
+/* ---------- speaker notes (press N) ---------- */
+#notes { position: fixed; left: 0; right: 0; bottom: 0; padding: 14px 24px; background: rgba(31,35,40,.92);
+  color: #fff; font-size: 16px; line-height: 1.45; display: none; z-index: 10; }
+#notes.on { display: block; }
+#notes .pos { color: #9ba1aa; font-family: "JetBrains Mono", monospace; font-size: 13px; margin-bottom: 4px; }
+.note { display: none; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="pnum" class="mono"></div>
+
+  <!-- 0. real title (last slide of part 1, repeated here so part 2 can be clicked through on its own; drop on merge) -->
+  <section class="slide" data-name="Real title (from part 1)">
+    <div class="title">
+      <h1>Measuring AI on Open-Ended Problems</h1>
+      <div class="temo">🔭</div>
+      <div class="by"><b>Tony Chen</b> · Princeton University</div>
+    </div>
+    <div class="note" data-at="0">Today I will discuss two benchmarks I worked on that measure AI in two classes of open-ended problems.</div>
+  </section>
+
+  <!-- 1. CEO-Bench title -->
+  <section class="slide p2" data-name="CEO-Bench title">
+    <div class="title">
+      <h1>How to Make a Billion Dollars</h1>
+      <div class="by c-aka">aka <b>CEO-Bench</b></div>
+      <img class="c-logo" src="data:image/png;base64,{{CEOLOGO}}" alt="CEO-Bench logo">
+    </div>
+    <div class="note" data-at="0">The first one: how to make a billion dollars. Also known as CEO-Bench.</div>
+  </section>
+
+  <!-- 2. moving parts + zoom-ins -->
+  <section class="slide p2" data-name="Many moving parts" data-classes='{"zp":1,"zg":2,"c-revealed":3,"zq":4,"c-rd2":6,"ze":7,"zc":8}'
+    data-marks='{"Pricing":1,"Growth":2,"Product quality":4,"Enterprise sales":7,"Competitors":8}'>
+    <div class="c-lines" data-out="1">
+      <div><span class="e">🤖</span><span>An LLM agent runs a startup in a simulator for <b>500 days</b></span></div>
+      <div><span class="e">☁️</span><span>A typical subscription-based AI software company</span></div>
+    </div>
+    <div class="c-acclip"><div class="c-acwrap">{{AC_HTML}}</div></div>
+
+    <!-- pricing -->
+    <div class="c-zp" data-in="1" data-out="2">
+      <h3>🏷️ Set the price of 3 subscription plans</h3>
+      <div class="c-plans">
+        <div class="c-plan"><div class="hd">Plan A<span>entry</span></div><div class="track"></div><div class="knob" style="--k0:250px;--k1:200px;--k2:226px">$29</div></div>
+        <div class="c-plan"><div class="hd">Plan B<span>mid</span></div><div class="track"></div><div class="knob" style="--k0:180px;--k1:226px;--k2:160px">$79</div></div>
+        <div class="c-plan"><div class="hd">Plan C<span>premium</span></div><div class="track"></div><div class="knob" style="--k0:130px;--k1:160px;--k2:120px">$199</div></div>
+      </div>
+      <div class="c-code mono"><span>pricing</span>.<span class="f">set_prices</span>(A=<span class="n">29</span>, B=<span class="n">79</span>, C=<span class="n">199</span>)</div>
+    </div>
+
+    <!-- growth -->
+    <div class="c-zp" data-in="2" data-out="4">
+      <h3>📣 Allocate ads budget by channel and group</h3>
+      {{HEAT_HTML}}
+      <div class="c-hidden-tag" data-in="3"><span class="pill">{{EYEOFF}}Hidden from the agent</span><span>how each group responds to each channel<br>new customers per $1K</span></div>
+    </div>
+
+    <!-- product quality -->
+    <div class="c-zp" data-in="4" data-out="7">
+      <h3>⭐ Each group has its own quality bar</h3>
+      {{QCHART}}
+      <div class="c-rdanim" data-in="6">
+        <svg class="c-clock" viewBox="0 0 100 100" width="96" height="96"><circle cx="50" cy="50" r="44" fill="#fff" stroke="#1f2328" stroke-width="5"/><line x1="50" y1="50" x2="50" y2="26" stroke="#1f2328" stroke-width="5" stroke-linecap="round"/><line class="c-hand" x1="50" y1="50" x2="50" y2="14" stroke="var(--c-red)" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1f2328"/></svg>
+        <div class="c-money"><span style="--i:0">💸</span><span style="--i:1">💸</span><span style="--i:2">💸</span><span style="--i:3">💸</span><span style="--i:4">💸</span></div>
+        <div class="c-rdlab"><b>R&amp;D increases quality</b><span>with cost and delayed effects</span></div>
+      </div>
+    </div>
+
+    <!-- enterprise -->
+    <div class="c-zp" data-in="7" data-out="8">
+      <h3>🏢 Negotiate with enterprise customers</h3>
+      <div class="c-chat">
+        <div class="c-msg me" style="--d:.2s"><span class="who">🤖 Agent</span>Plan C · $24/seat · 12-month contract</div>
+        <div class="c-msg them" style="--d:1s"><span class="who">🏢 Customer #77398</span>Counter-offer: Plan B, $13.51/seat/month, 1-month contract.</div>
+        <div class="c-msg me" style="--d:1.8s"><span class="who">🤖 Agent</span>Plan B · $19/seat · 6-month contract</div>
+        <div class="c-msg them" style="--d:2.6s"><span class="who">🏢 Customer #77398</span>Deal won at $19.00/seat ✅</div>
+      </div>
+      <div class="c-locks">
+        <div class="c-lock"><b>{{EYEOFF}}</b>True price preference<span class="q">?</span></div>
+        <div class="c-lock"><b>{{EYEOFF}}</b>Rounds before they walk away<span class="q">?</span></div>
+      </div>
+    </div>
+
+    <!-- competitors -->
+    <div class="c-zp" data-in="8">
+      <h3>⚔️ Competitors keep raising the bar</h3>
+      {{COMP_CHART}}
+    </div>
+
+    <div class="note" data-at="0">We ask an LLM agent to run a startup in a simulator for 500 days. It's a typical subscription-based AI software company, and running it means coordinating many moving parts.</div>
+    <div class="note" data-at="1">Pricing: it has to decide the price for three subscription tiers.</div>
+    <div class="note" data-at="2">Growth: it allocates ad budget into different channels for each customer group.</div>
+    <div class="note" data-at="3">And each customer group responds differently to each channel, which is hidden from the agent.</div>
+    <div class="note" data-at="4">Product quality: different customer groups have different quality bars, and they are willing to pay more as quality increases.</div>
+    <div class="note" data-at="5">The agent can improve quality with R&amp;D, which costs money and has delayed impact.</div>
+    <div class="note" data-at="6">Other factors like quota limits for each plan and service reliability also impact quality.</div>
+    <div class="note" data-at="7">Enterprise sales: it negotiates with enterprise customers over multiple turns, whose true price preference and maximum rounds of negotiation aren't revealed.</div>
+    <div class="note" data-at="8">Competitors: they increase customers' quality expectations over time, so there's always pressure to improve product quality.</div>
+  </section>
+
+  <!-- 3. teaser, one component at a time -->
+  <section class="slide p2" data-name="How the agent plays" data-marks='{"Agent":1,"Terminal":2,"Tools":3,"Database":4,"Social media":5,"Market":6,"Outcomes":7}'>
+    <div class="c-tz">{{TEASER_HTML}}</div>
+    <div class="note" data-at="0">So putting it together…</div>
+    <div class="note" data-at="1">A language model agent…</div>
+    <div class="note" data-at="2">…manages a startup via a company management API, in a terminal…</div>
+    <div class="note" data-at="3">…with diverse company management tools.</div>
+    <div class="note" data-at="4">It's given access to a business database, as in the real world…</div>
+    <div class="note" data-at="5">…and can read and post on social media.</div>
+    <div class="note" data-at="6">Together with these tools, the agent influences and acquires information from a noisy market…</div>
+    <div class="note" data-at="7">…over the course of 500 simulated days.</div>
+  </section>
+
+  <!-- 4. rigor (a) -->
+  <section class="slide p2" data-name="Granular simulation" data-classes='{"c-veiled":7}'
+    data-marks='{"Groups":1,"First customers":5,"All customers":6,"Hidden":7,"Data analysis":8}'>
+    <div class="c-kicker">How we make CEO-Bench rigorous and challenging</div>
+    <div class="c-h">Maximize realism with granular simulation 🔬</div>
+    {{GROUPS_HTML}}
+    <div class="c-hid" data-in="7">{{EYEOFF}}Every customer's preferences are hidden from the agent</div>
+    <div class="c-side" data-in="8">
+      <h4 class="c-dbh">{{DBL}}Agent must infer hidden customer distributions via data analysis</h4>
+      <div class="c-tbls mono"><span>{{DBI}}customers</span><span>{{DBI}}subscriptions</span><span>{{DBI}}ledger</span><span>{{DBI}}ad_channel_leads</span><span>{{DBI}}enterprise_turns</span><span>{{DBI}}social_media_posts</span><span>{{DBI}}daily_usage</span><span>{{DBI}}issues</span><span>{{DBI}}research_projects</span><span>{{DBI}}… 9 more</span></div>
+      <div class="c-sql mono">{{SQL}}</div>
+    </div>
+    <div class="note" data-at="0">How do we make CEO-Bench rigorous and challenging? First, we maximize realism with granular simulation.</div>
+    <div class="note" data-at="1">There are different customer groups…</div>
+    <div class="note" data-at="5">…and each customer is simulated individually…</div>
+    <div class="note" data-at="6">…with its own distinct preferences, sampled from its group.</div>
+    <div class="note" data-at="7">All of this is hidden from the agent.</div>
+    <div class="note" data-at="8">What it gets instead is business databases, and it has to write data analysis code to infer what's going on.</div>
+  </section>
+
+  <!-- 5. rigor (b) -->
+  <section class="slide p2" data-name="Robust simulation" data-classes='{"c-on":1}' data-marks='{"Vending-Bench":2}'>
+    <div class="c-kicker">How we make CEO-Bench rigorous and challenging</div>
+    <div class="c-h">Robust simulation through mechanistic rules ⚙️</div>
+    {{PQ_SVG}}
+    <img class="c-vbt" data-in="2" src="data:image/png;base64,{{VBTITLE}}" alt="Vending-Bench paper title">
+    <img class="c-fbi" data-in="3" src="data:image/png;base64,{{FBIPNG}}" alt="Vending-Bench transcript: the agent emails the FBI">
+    <div class="c-fbi-cap" data-in="3">When the simulation isn't robust, agents spiral 🌀</div>
+    <div class="note" data-at="0">Second, the simulation is robust because it runs on mechanistic rules.</div>
+    <div class="note" data-at="1">For example, a price-versus-quality curve keeps customer behavior consistent: offer enough quality for the price and they subscribe, otherwise they reject.</div>
+    <div class="note" data-at="2">Every customer follows the same rule, so there's no way to talk your way past it. Compare that with Vending-Bench, where an agent ended up emailing the FBI.</div>
+  </section>
+
+  <!-- 6. rigor (c) -->
+  <section class="slide p2" data-name="Interconnected dynamics" data-classes='{"c-arrows":1}'>
+    <div class="c-kicker">How we make CEO-Bench rigorous and challenging</div>
+    <div class="c-h">Interconnected world dynamics 🕸️</div>
+    {{NET_HTML}}
+    <div class="c-noexp" data-in="2">Customer groups influence each other, so there's no isolated dynamic to exploit 🔗</div>
+    <div class="note" data-at="0">Third, the world dynamics are interconnected.</div>
+    <div class="note" data-at="1">Customer segments influence each other…</div>
+    <div class="note" data-at="2">…which prevents exploiting any one dynamic in isolation.</div>
+  </section>
+
+  <!-- 7. rigor (d) -->
+  <section class="slide p2" data-name="Non-stationary world">
+    <div class="c-kicker">How we make CEO-Bench rigorous and challenging</div>
+    <div class="c-h">A non-stationary environment 🌊</div>
+    <div class="c-ns">
+      <div class="c-nsbox rise" data-in="1" style="--bc:var(--c-blue)"><div class="ic">🧪</div><div><div class="t">Agent's R&amp;D finishes</div><div class="v mono">quality +0.18 ↑</div></div></div>
+      <div class="c-nsarr" data-in="2">↓</div>
+      <div class="c-nsbox rise" data-in="2" style="--bc:var(--c-amber)"><div class="ic">⚔️</div><div><div class="t">A competitor moves</div><div class="v mono">quality +0.12 ↑</div></div></div>
+      <div class="c-nsarr" data-in="3">↓</div>
+      <div class="c-nsbox rise" data-in="3" style="--bc:var(--ink)"><div class="ic">📈</div><div><div class="t">Customer expectations go up</div><div class="v">so yesterday's good product is today's average one</div></div></div>
+    </div>
+    <div class="note" data-at="0">Finally, the environment is non-stationary.</div>
+    <div class="note" data-at="1">Say the agent's R&amp;D finishes and quality goes up…</div>
+    <div class="note" data-at="2">…but a competitor moves too…</div>
+    <div class="note" data-at="3">…so customer expectations increase. This tests the agent's ability to adapt.</div>
+  </section>
+
+  <!-- 8. code files -->
+  <section class="slide p2" data-name="Agents write code">
+    <div class="c-h">Top agents write their own analysis code 💻</div>
+    <div class="c-fig8">
+      <div class="c-codefig">{{CODEFIG}}</div>
+      <div class="c-cap">Example code files written by top-performing agents during their best trajectories</div>
+    </div>
+    <div class="c-not" data-in="1"><span class="x">a simple tool-call benchmark</span><span>→</span><span>📊 data-driven</span><span>·</span><span>💻 code interface</span><span>·</span><span>⏳ long-horizon decisions</span></div>
+    <div class="note" data-at="0">Here are example code files written by top-performing agents during their best trajectories.</div>
+    <div class="note" data-at="1">Note that this is not a simple tool-call benchmark. It's a data-driven, code-interface, long-horizon decision benchmark.</div>
+  </section>
+
+  <!-- 9. results title -->
+  <section class="slide p2" data-name="How did agents do?">
+    <div class="title">
+      <h1>How Did Agents Do?</h1>
+      <div class="temo">🏁</div>
+    </div>
+    <div class="note" data-at="0">So how did agents do?</div>
+  </section>
+
+  <!-- 10. leaderboard over time -->
+  <section class="slide p2" data-name="Leaderboard" data-classes='{"pA":1,"pD":2,"pE":3,"mS":4,"pF":6,"mF":7}'
+    data-marks='{"June":1,"August":2,"Today":3,"One more thing":5,"Fable 5.1":6}'>
+    <div class="c-lb">
+      {{LB_HTML}}
+    </div>
+    <div class="note" data-at="0">Now here's a little surprise I have for some of you that know the benchmark well. This is cash over 500 days, log scale. The dashed line is a simple rule-based baseline.</div>
+    <div class="note" data-at="1">Four months ago, no model beat the rule-based baseline.</div>
+    <div class="note" data-at="2">By August, models gradually got better, and Kimi K3 became the best. A surprising conclusion: we are measuring something other benchmarks aren't.</div>
+    <div class="note" data-at="3">And today, excluding Fable 5.1, this is where things stand.</div>
+    <div class="note" data-at="4">GPT-6 Sol ends with about 13 times the cash of GPT-5.6 Sol.</div>
+    <div class="note" data-at="5">One more thing…</div>
+    <div class="note" data-at="6">Fable 5.1.</div>
+    <div class="note" data-at="7">That's over 100 times Fable 5.</div>
+  </section>
+
+</div>
+<button id="menuBtn" class="ctl" aria-label="Slides" title="Slides (M)">☰</button>
+<button id="fsBtn" class="ctl" aria-label="Fullscreen" title="Fullscreen (F)">⛶</button>
+<nav id="nav" aria-label="Slides"><div class="navhead">Slides</div><ol id="navList"></ol></nav>
+<div id="notes"><div class="pos"></div><div class="txt"></div></div>
+
+<script>
+// ---------- deck engine (same as part 1) ----------
+const stage = document.getElementById("stage");
+const slides = [...document.querySelectorAll(".slide")].map(el => {
+  const classes = JSON.parse(el.dataset.classes || "{}");
+  const ins = [...el.querySelectorAll("[data-in],[data-out]")];
+  const maxIn = Math.max(0, ...ins.map(e => +(e.dataset.in || 0)), ...ins.map(e => +(e.dataset.out || 0)), ...Object.values(classes));
+  return { el, classes, ins, steps: Math.max(+(el.dataset.steps || 1), maxIn + 1) };
+});
+let cur = 0, step = 0;
+
+function fit() {
+  const s = Math.min(innerWidth / 1600, innerHeight / 900);
+  stage.style.transform = `scale(${s}) translate(-50%, -50%)`;
+}
+function applyState(el, classes, step) {
+  for (const e of el.querySelectorAll("[data-in],[data-out]")) {
+    const a = e.dataset.in === undefined ? 0 : +e.dataset.in;
+    const b = e.dataset.out === undefined ? Infinity : +e.dataset.out;
+    e.classList.toggle("frag-hidden", !(step >= a && step < b));
+  }
+  for (const [c, at] of Object.entries(classes)) el.classList.toggle(c, step >= at);
+}
+function render() {
+  slides.forEach((s, i) => s.el.classList.toggle("active", i === cur));
+  const s = slides[cur];
+  applyState(s.el, s.classes, step);
+  const pn = document.getElementById("pnum");
+  pn.textContent = cur + 1; pn.hidden = cur === 0;
+  // notes
+  const notes = [...s.el.querySelectorAll(".note")].filter(n => +n.dataset.at <= step);
+  document.querySelector("#notes .txt").textContent = notes.length ? notes[notes.length - 1].textContent : "";
+  document.querySelector("#notes .pos").textContent = `slide ${cur + 1}/${slides.length} · step ${step + 1}/${s.steps}`;
+  try { history.replaceState(null, "", `#${cur + 1}.${step + 1}`); } catch (e) {}
+  renderNav();
+}
+function go(d) {
+  if (d > 0) {
+    if (step < slides[cur].steps - 1) step++;
+    else if (cur < slides.length - 1) { cur++; step = 0; }
+  } else {
+    if (step > 0) step--;
+    else if (cur > 0) { cur--; step = slides[cur].steps - 1; }
+  }
+  render();
+}
+addEventListener("keydown", e => {
+  if (["ArrowRight", "ArrowDown", " ", "PageDown", "Enter"].includes(e.key)) { e.preventDefault(); go(1); }
+  else if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); go(-1); }
+  else if (e.key === "Home") { cur = 0; step = 0; render(); }
+  else if (e.key === "End") { cur = slides.length - 1; step = slides[cur].steps - 1; render(); }
+  else if (e.key === "f" || e.key === "F") { toggleFs(); }
+  else if (e.key === "m" || e.key === "M" || e.key === "s" || e.key === "S") { toggleNav(); }
+  else if (e.key === "Escape") { toggleNav(false); }
+  else if (e.key === "n" || e.key === "N") { document.getElementById("notes").classList.toggle("on"); }
+});
+addEventListener("click", e => {
+  if (e.target.closest("#nav, .ctl")) return;
+  if (document.body.classList.contains("navopen")) { toggleNav(false); return; }
+  go(e.clientX < innerWidth * 0.25 ? -1 : 1);
+});
+
+// sidebar
+const navList = document.getElementById("navList");
+const navItems = [];
+slides.forEach((s, i) => {
+  const marks = Object.entries(JSON.parse(s.el.dataset.marks || "{}"));
+  const add = (label, st, previewStep, sub) => {
+    const li = document.createElement("li"); const b = document.createElement("button");
+    if (sub) b.className = "sub";
+    const thumb = document.createElement("div"); thumb.className = "thumb";
+    const mini = document.createElement("div"); mini.className = "mini";
+    const clone = s.el.cloneNode(true); clone.classList.add("active"); clone.removeAttribute("id");
+    applyState(clone, s.classes, previewStep);
+    mini.appendChild(clone); thumb.appendChild(mini);
+    const cap = document.createElement("div"); cap.className = "cap";
+    cap.innerHTML = sub ? label : `<span class="k">${i + 1}</span>${label}`;
+    b.appendChild(thumb); b.appendChild(cap);
+    b.addEventListener("click", () => { cur = i; step = st; render(); });
+    li.appendChild(b); navList.appendChild(li); navItems.push({ b, i, st, sub });
+  };
+  add(s.el.dataset.name || `Slide ${i + 1}`, 0, marks.length ? marks[0][1] - 1 : s.steps - 1, false);
+  for (const [label, st] of marks) add(label, st, st, true);
+});
+function renderNav() {
+  let best = null;
+  for (const n of navItems) if (n.sub && n.i === cur && n.st <= step && (!best || n.st >= best.st)) best = n;
+  navItems.forEach(n => n.b.classList.toggle("cur", n.sub ? n === best : n.i === cur));
+}
+function toggleNav(open) { document.body.classList.toggle("navopen", open ?? !document.body.classList.contains("navopen")); }
+document.getElementById("menuBtn").addEventListener("click", () => toggleNav());
+
+// fullscreen
+function toggleFs() {
+  try {
+    const p = document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    if (p && p.catch) p.catch(() => {});
+  } catch (e) {}
+}
+document.getElementById("fsBtn").addEventListener("click", toggleFs);
+
+// show controls on mouse move, hide when idle
+let idle;
+addEventListener("mousemove", () => {
+  document.body.classList.add("ui"); clearTimeout(idle);
+  idle = setTimeout(() => document.body.classList.remove("ui"), 2000);
+});
+addEventListener("resize", fit);
+const m = location.hash.match(/^#(\d+)(?:\.(\d+))?$/);
+if (m) { cur = Math.min(slides.length, +m[1]) - 1; step = Math.min(slides[cur].steps, +(m[2] || 1)) - 1; }
+fit(); render();
+</script>
+</body>
+</html>

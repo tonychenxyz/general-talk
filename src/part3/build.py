@@ -378,10 +378,10 @@ for ks, (lx, ly), (ax, ay), prices in LBL:
     for k, c in zip(ks, prices):
         qmin, qmax, cmax = QGD[k]
         c, q = smooth_q(lambda x: q_req(x, cmax, qmin, qmax), cmax, c)
-        s.append(f'<g class="w-lead1"><line x1="{ax}" y1="{ay}" x2="{rx(c):.1f}" y2="{ry(q):.1f}" stroke="#1f2328" stroke-width="1.8"/>'
+        s.append(f'<g class="w-lead1"{tag_in(4)}><line x1="{ax}" y1="{ay}" x2="{rx(c):.1f}" y2="{ry(q):.1f}" stroke="#1f2328" stroke-width="1.8"/>'
                  f'<circle cx="{rx(c):.1f}" cy="{ry(q):.1f}" r="6" fill="{RG[k][2]}" stroke="#fff" stroke-width="2"/></g>')
     b_, t_ = LTXT[ks[0]]
-    h.append(f'<div class="w-glab" style="left:{lx}px;top:{ly}px"><b>{b_}</b><span>{t_}</span></div>')
+    h.append(f'<div class="w-glab"{tag_in(4)} style="left:{lx}px;top:{ly}px"><b>{b_}</b><span>{t_}</span></div>')
 s.append('</svg>')
 money_fx = ''.join(f'<span style="--i:{i}">💸</span>' for i in range(5))
 slides.append(f'''  <section class="slide p2 w-on" data-name="Refresher: groups" data-classes='{{"w-q1":2,"w-q2":3}}'>
@@ -396,6 +396,7 @@ slides.append(f'''  <section class="slide p2 w-on" data-name="Refresher: groups"
     <div class="note" data-at="1">Your product starts here, low quality, so only price-sensitive individuals buy.</div>
     <div class="note" data-at="2">Spending on development raises quality, but it costs money upfront and lands weeks later. Then professional individuals start buying.</div>
     <div class="note" data-at="3">Keep spending and you reach enterprises: strategic partners and quality-first enterprises. Per-seat prices, hundreds to thousands of seats per subscription.</div>
+    <div class="note" data-at="4">So: price-sensitive individuals have a small budget but a low quality bar; professional individuals need more quality and pay more; enterprise groups need even more quality, and each subscription pays for 100 to 2,000 seats.</div>
   </section>''')
 css.append('''
 .w-reach { transform-box: fill-box; transform-origin: bottom; transition: opacity .6s ease, transform 1.4s var(--ease) 1.2s !important; }

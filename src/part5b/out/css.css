@@ -8,6 +8,7 @@
 .sb-par .sb-box.sm { font-size: 11.5px; }
 .sb-par .sb-small { font-size: 9.5px; }
 .sb-par .sb-arc { font-size: 10.5px; font-weight: 700; }
+.sb-par .sb-cite { font-size: 7.5px; font-weight: 400; }
 .sb-pbin { display: none; }
 .sb-pa { transform: translateX(184.50px); transition: transform 1s var(--ease); }
 .sb-pb { opacity: 0; transition: opacity .7s ease; }

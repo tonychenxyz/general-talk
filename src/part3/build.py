@@ -24,7 +24,7 @@ AXC, GRC, DASH = '#0a2540', '#d6dde6', '4 6'
 CATS = [('S1', '🎓', 'Price-sensitive', '#00875a', '#bfe8d3'),
         ('S2', '💼', 'Quality-focused', '#2f6df6', '#c9dafd'),
         ('S3', '💻', 'Power users', '#b15c00', '#f6d6ae'),
-        ('D', '🔍', 'Discovered groups', '#0e8a9a', '#bde7ec'),
+        ('D', '🔍', 'Other groups', '#0e8a9a', '#bde7ec'),
         ('E', '🏢', 'Enterprise', '#b8326b', '#f6c9da')]
 CAT = {c[0]: c for c in CATS}
 esc = html.escape
@@ -454,7 +454,7 @@ def colheads(xs, w, step1=None):
 # 7. customers by group over time
 # =====================================================================================
 G = D['groups']; REV = D['revenue']
-KEYS = ['S1', 'S2', 'S3', 'D', 'E']
+KEYS = ['S1', 'S2', 'S3', 'E', 'D']             # 'Other groups' last (top of the stack, end of the legend)
 s = ['<svg class="w-svg" viewBox="0 0 1600 900">']
 h = []
 geo = {}
@@ -475,7 +475,7 @@ def rev_call(m, keys, step, pos):
     lines = ''.join(f'<span><i style="background:{CAT[k][3]}"></i>{CAT[k][2]}: <b>{money(REV[m][k])}</b></span>' for k in keys)
     return (f'<div class="w-rev"{tag_in(step)} style="{pos}">{lines}'
             f'<span class="tot"><b>{part / tot:.0%}</b> of all revenue</span></div>')
-h.append(rev_call('GPT-6 Sol', ['D', 'E'], 2, f'right:{1600 - GX[1] - PW + 4}px;top:{GY[0] - 6}px'))
+h.append(rev_call('GPT-6 Sol', ['E', 'D'], 2, f'right:{1600 - GX[1] - PW + 4}px;top:{GY[0] - 6}px'))
 h.append(rev_call('Claude Fable 5.1', ['E', 'D'], 2, f'left:{GX[1] + 14}px;top:{GY[1] - 6}px'))
 s6, f51 = REV['GPT-6 Sol'], REV['Claude Fable 5.1']
 slides.append(f'''  <section class="slide p2" data-name="Customers by group" data-marks='{{"Fable":1,"Where the money is":2}}'>
@@ -487,7 +487,7 @@ slides.append(f'''  <section class="slide p2" data-name="Customers by group" dat
     <div class="note" data-at="0">Let's zoom in on two generations of two model families. Top row: paying customers by group over time. GPT-5.6 Sol's customers are almost all price-sensitive. GPT-6 Sol starts with the quality-focused group, then adds power users, cheap customers, discovered groups and enterprise.</div>
     {src_note("paying customers (enterprise: seats) by group per day, best run of each model; x axis is the game day. Styled like the paper's customer-groups figure.")}
     <div class="note" data-at="1">Same pattern for Fable. Fable 5 is almost all quality-focused. Fable 5.1 opens many groups at once, and enterprise seats keep growing to the end.</div>
-    <div class="note" data-at="2">And those new chunks are where the money is. For GPT-6 Sol, discovered groups and enterprise brought {money(s6["D"] + s6["E"])}. For Fable 5.1, enterprise alone brought {money(f51["E"])}, {f51["E"] / sum(f51.values()):.0%} of all its revenue.</div>
+    <div class="note" data-at="2">And those new chunks are where the money is. For GPT-6 Sol, enterprise and other groups (discovered through market research) brought {money(s6["D"] + s6["E"])}. For Fable 5.1, enterprise alone brought {money(f51["E"])}, {f51["E"] / sum(f51.values()):.0%} of all its revenue.</div>
   </section>''')
 css.append('''
 .w-svg .w-tick.sm { font-size: 16px; }
@@ -510,6 +510,10 @@ css.append('''
 TD = D['targeted_dev_cum']
 PIES = [('GPT-5.6 Sol', 0), ('Claude Fable 5', 0), ('GPT-6 Sol', 1), ('Claude Fable 5.1', 1)]
 PCW, PR, PCY = 350, 145, 425                   # panel width, pie radius, pie centre y
+# two slices: price-sensitive + quality-focused (S1, S2) vs power users, other (discovered) groups and enterprise
+PIECAT = [('low', ('S1', 'S2'), '#c9ced4', 'Low value, less investment, immediate payoff groups'),
+          ('high', ('S3', 'D', 'E'), '#8554b2', 'High value, more investment, delayed payoff groups')]
+HIGH = PIECAT[1][1]
 
 
 def polar(cx, cy, r, frac):
@@ -519,20 +523,24 @@ def polar(cx, cy, r, frac):
 
 s = ['<svg class="w-svg" viewBox="0 0 1600 900">']
 h = []
-hv = {m: sum(TD[m][-1][k] for k in ('S2', 'S3', 'D', 'E')) for m in TD}
+hv = {m: sum(TD[m][-1][k] for k in HIGH) for m in TD}
 for i, (m, step) in enumerate(PIES):
     x0 = 100 + i * PCW; cx = x0 + PCW / 2
-    fin = {k: TD[m][-1][k] for k in KEYS}; tot = sum(fin.values())
+    fin = {c: sum(TD[m][-1][k] for k in ks) for c, ks, _, _ in PIECAT}; tot = sum(fin.values())
+    col = {c: cl for c, _, cl, _ in PIECAT}
     g = [f'<g{tag_in(step)}>']
     f0 = 0
-    for k in KEYS:
+    for k in ('high', 'low'):
         if fin[k] <= 0: continue
         f1 = f0 + fin[k] / tot
-        (sx, sy), (ex, ey) = polar(cx, PCY, PR, f0), polar(cx, PCY, PR, f1)
-        g.append(f'<path d="M{cx:.1f} {PCY} L{sx:.2f} {sy:.2f} A{PR} {PR} 0 {1 if f1 - f0 > .5 else 0} 1 {ex:.2f} {ey:.2f} Z" fill="{CAT[k][3]}" fill-opacity=".72"/>')
+        if f1 - f0 > .9999:
+            g.append(f'<circle cx="{cx:.1f}" cy="{PCY}" r="{PR}" fill="{col[k]}"/>')
+        else:
+            (sx, sy), (ex, ey) = polar(cx, PCY, PR, f0), polar(cx, PCY, PR, f1)
+            g.append(f'<path d="M{cx:.1f} {PCY} L{sx:.2f} {sy:.2f} A{PR} {PR} 0 {1 if f1 - f0 > .5 else 0} 1 {ex:.2f} {ey:.2f} Z" fill="{col[k]}"/>')
         if f1 - f0 >= .075:
             lx, ly = polar(cx, PCY, PR * (.6 if f1 - f0 > .2 else .72), (f0 + f1) / 2)
-            g.append(f'<text x="{lx:.1f}" y="{ly + 7:.1f}" text-anchor="middle" class="w-pct">{(f1 - f0) * 100:.0f}%</text>')
+            g.append(f'<text x="{lx:.1f}" y="{ly + 7:.1f}" text-anchor="middle" class="w-pct{" on" if k == "high" else ""}">{(f1 - f0) * 100:.0f}%</text>')
         f0 = f1
     g.append(f'<circle cx="{cx:.1f}" cy="{PCY}" r="{PR}" fill="none" stroke="{AXC}" stroke-width="2"/></g>')
     s.append(''.join(g))
@@ -540,22 +548,23 @@ for i, (m, step) in enumerate(PIES):
         s.append(f'<line{tag_in(1) if i == 3 else ""} x1="{x0}" x2="{x0}" y1="190" y2="725" stroke="{"#c9d1db" if i == 2 else "#e6eaef"}" stroke-width="{2 if i == 2 else 1.5}"/>')
     h.append(f'<div class="w-pie"{tag_in(step)} style="left:{x0}px;width:{PCW}px"><div class="w-ptitle w-pname"><span class="w-dot" style="background:{COL[m]}"></span>'
              f'<b>{m}</b><span class="w-cash">{money(CV[m]["final"])}</span></div>'
-             f'<div class="w-hv" style="top:{PCY + PR + 22 - 196}px"><b>{money(hv[m])}</b>on groups other than<br>price-sensitive</div></div>')
+             f'<div class="w-hv" style="top:{PCY + PR + 22 - 196}px"><b>{money(hv[m])}</b>on high-value groups</div></div>')
 s.append('</svg>')
 slides.append(f'''  <section class="slide p2" data-name="Quality investment" data-marks='{{"Latest generation":1}}'>
     <div class="c-h">Who builds quality for valuable customers?</div>
     <div class="w-colh" style="left:100px;width:700px">Earlier generation</div><div class="w-colh"{tag_in(1)} style="left:800px;width:700px">Latest generation</div>
     {''.join(s)}
     {''.join(h)}
-    {legend(KEYS, 772)}
-    <div class="note" data-at="0">Now quality investment: development money aimed at a specific customer group, added up over the game. GPT-5.6 Sol spent {money(hv["GPT-5.6 Sol"])} beyond the price-sensitive group; its development went to the cheap group it already had. Fable 5 spent {money(hv["Claude Fable 5"])}, almost all on the one quality-focused group.</div>
+    <div class="w-legend" style="top:772px">{''.join(f'<span><i style="background:{cl};border-color:{cl}"></i>{lab}</span>' for _, _, cl, lab in PIECAT)}</div>
+    <div class="note" data-at="0">Now quality investment: development money aimed at a specific customer group, added up over the game. Gray is the price-sensitive and quality-focused groups, the ones that pay off soon; purple is power users, enterprise and the other groups found through market research, which need more investment before they pay. GPT-5.6 Sol put {money(hv["GPT-5.6 Sol"])} into the purple groups; most of its development went to the cheap group it already had. Fable 5 put {money(hv["Claude Fable 5"])} there; almost all of its development went to the quality-focused group.</div>
     {src_note("cumulative targeted development (budget aimed at one customer group) by the end of the game, best run of each model; slices are shares of each model's targeted development. Earlier runs parsed from agent commands, latest from the game database. Styled like the paper's targeted-dev-spend pies.")}
-    <div class="note" data-at="1">The latest generation: GPT-6 Sol put {money(hv["GPT-6 Sol"])} into quality for higher-value groups, most of it before those customers had arrived. Fable 5.1 put {money(hv["Claude Fable 5.1"])} into groups beyond the price-sensitive one, mostly enterprise and discovered groups, starting in its first weeks.</div>
+    <div class="note" data-at="1">The latest generation: GPT-6 Sol put {money(hv["GPT-6 Sol"])} into the high-value groups, most of it before those customers had arrived. Fable 5.1 put {money(hv["Claude Fable 5.1"])} there, mostly into enterprise and other groups, starting in its first weeks.</div>
   </section>''')
 css.append('''
 .w-pie { position: absolute; top: 196px; height: 560px; }
 .w-pname { position: static; justify-content: center; }
 .w-pct { font-size: 19px; font-weight: 600; }
+.w-svg text.w-pct.on { fill: #fff; }
 .w-hv { position: absolute; left: 0; right: 0; text-align: center; font-size: 20px; line-height: 1.25; }
 .w-hv b { display: block; font-size: 40px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 2px; }''')
 

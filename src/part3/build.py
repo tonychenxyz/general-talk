@@ -470,13 +470,19 @@ for m, r, c in GRID:
 s.append('</svg>')
 h.append(f'<div class="w-call"{tag_in(0)} style="right:{1600 - GX[0] - PW + 10}px;top:{GY[0] + 30}px">almost all price-sensitive</div>')
 h.append(f'<div class="w-call"{tag_in(1)} style="right:{1600 - GX[0] - PW + 10}px;top:{GY[1] + 30}px">almost all quality-focused</div>')
-def rev_call(m, keys, step, pos):
-    tot = sum(REV[m].values()); part = sum(REV[m][k] for k in keys)
-    lines = ''.join(f'<span><i style="background:{CAT[k][3]}"></i>{CAT[k][2]}: <b>{money(REV[m][k])}</b></span>' for k in keys)
-    return (f'<div class="w-rev"{tag_in(step)} style="{pos}">{lines}'
-            f'<span class="tot"><b>{part / tot:.0%}</b> of all revenue</span></div>')
-h.append(rev_call('GPT-6 Sol', ['E', 'D'], 2, f'right:{1600 - GX[1] - PW + 4}px;top:{GY[0] - 6}px'))
-h.append(rev_call('Claude Fable 5.1', ['E', 'D'], 2, f'left:{GX[1] + 14}px;top:{GY[1] - 6}px'))
+def ent_pointer(m, step, lx, ly, anchor, day=None):
+    """Leader line from the thickest point of the enterprise band to a label at (lx, ly) in stage px."""
+    px, py, x0, y0 = geo[m]
+    below = ('S1', 'S2', 'S3')
+    p = max(G[m], key=lambda q: q['E']) if day is None else min(G[m], key=lambda q: abs(q['day'] - day))
+    lo = sum(p[k] for k in below); x, y = px(p['day']), py(lo + p['E'] / 2)
+    if lx is None: lx = x                       # vertical leader line, label right-aligned on it
+    s.insert(-1, f'<g{tag_in(step)}><line x1="{lx:.0f}" y1="{ly:.0f}" x2="{x:.1f}" y2="{y:.1f}" stroke="#1f2328" stroke-width="2"/>'
+                 f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="#1f2328"/></g>')
+    return (f'<div class="w-ent"{tag_in(step)} style="left:{lx:.0f}px;top:{ly:.0f}px;transform:translate({anchor},-100%)">'
+            f'Enterprise revenue <b>{money(REV[m]["E"])}</b></div>')
+h.append(ent_pointer('GPT-6 Sol', 2, GX[1] + PW - 150, GY[0] + 46, '-50%'))
+h.append(ent_pointer('Claude Fable 5.1', 2, None, GY[1] + 46, 'calc(-100% + 14px)', day=490))   # enterprise is the top layer there
 s6, f51 = REV['GPT-6 Sol'], REV['Claude Fable 5.1']
 slides.append(f'''  <section class="slide p2" data-name="Customers by group" data-marks='{{"Fable":1,"Where the money is":2}}'>
     <div class="c-h">Who are their customers?</div>
@@ -487,7 +493,7 @@ slides.append(f'''  <section class="slide p2" data-name="Customers by group" dat
     <div class="note" data-at="0">Let's zoom in on two generations of two model families. Top row: paying customers by group over time. GPT-5.6 Sol's customers are almost all price-sensitive. GPT-6 Sol starts with the quality-focused group, then adds power users, cheap customers, discovered groups and enterprise.</div>
     {src_note("paying customers (enterprise: seats) by group per day, best run of each model; x axis is the game day. Styled like the paper's customer-groups figure.")}
     <div class="note" data-at="1">Same pattern for Fable. Fable 5 is almost all quality-focused. Fable 5.1 opens many groups at once, and enterprise seats keep growing to the end.</div>
-    <div class="note" data-at="2">And those new chunks are where the money is. For GPT-6 Sol, enterprise and other groups (discovered through market research) brought {money(s6["D"] + s6["E"])}. For Fable 5.1, enterprise alone brought {money(f51["E"])}, {f51["E"] / sum(f51.values()):.0%} of all its revenue.</div>
+    <div class="note" data-at="2">And enterprise is where the money is: GPT-6 Sol made {money(s6["E"])} from enterprise customers, and Fable 5.1 made {money(f51["E"])}.</div>
   </section>''')
 css.append('''
 .w-svg .w-tick.sm { font-size: 16px; }
@@ -497,6 +503,8 @@ css.append('''
 .w-ptitle .w-cash { font-size: 18px; }
 .w-legend { position: absolute; left: 0; right: 0; display: flex; justify-content: center; gap: 34px; font-size: 20px; }
 .w-legend i { display: inline-block; width: 18px; height: 18px; border-radius: 3px; opacity: .8; margin-right: 9px; vertical-align: -3px; }
+.w-ent { position: absolute; font-size: 22px; white-space: nowrap; padding-bottom: 6px; }
+.w-ent b { font-size: 26px; font-weight: 700; margin-left: 6px; }
 .w-call { position: absolute; font-size: 20px; font-weight: 600; white-space: nowrap; }
 .w-rev { position: absolute; display: flex; flex-direction: column; gap: 2px; padding: 8px 14px; border: 2px solid #1f2328; border-radius: 10px; background: rgba(255,255,255,.96); font-size: 18px; white-space: nowrap; }
 .w-rev i { display: inline-block; width: 13px; height: 13px; border-radius: 3px; opacity: .8; margin-right: 8px; }

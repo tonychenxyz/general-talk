@@ -311,7 +311,7 @@ s.append('</svg>')
 k_sol = CV['GPT-6 Sol']['final'] / CV['GPT-5.6 Sol']['final']; k_fab = CV['Claude Fable 5.1']['final'] / CV['Claude Fable 5']['final']
 slides.append(f'''  <section class="slide p2 w-on" data-name="Recent models?" data-marks='{{"GPT Sol {k_sol:.0f}×":1,"Fable {k_fab:.0f}×":2}}'>
     <div class="w-title">But What's Going On with Recent Models?</div>
-    <div class="w-sub20"{tag_in(2)}>Simply acting more wouldn't help</div>
+    <div class="w-sub20"{tag_in(2)}>Simply acting more wouldn't improve 138×</div>
     {''.join(s)}
     <div class="note" data-at="0">But what's going on with the most recent models?</div>
     <div class="note" data-at="1">GPT-6 Sol ends with {k_sol:.0f} times the cash of GPT-5.6 Sol…</div>

@@ -4,10 +4,14 @@ Everything lives between `part3:begin` / `part3:end` markers (one CSS block, one
 right after the Leaderboard slide), so rerunning only replaces this part and leaves other editors' slides alone.
 All classes are prefixed w- to avoid clashing with parts 1 and 2.
 """
-import html, json, math, pathlib, re
+import html, json, math, pathlib, re, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+from smooth_curve import smooth_path
 
 HERE = pathlib.Path(__file__).resolve().parent
+import os
 DECK = HERE.parent.parent / 'index.html'
+OUT = pathlib.Path(os.environ.get('DECK_OUT', DECK))   # preview: DECK_OUT=.preview-part3.html
 D = json.load(open(HERE / 'data.json'))
 
 COL = {'Claude Opus 4.7': '#cc79a7', 'Claude Fable 5': '#111827', 'Claude Fable 5.1': '#702da5',
@@ -201,7 +205,7 @@ css.append('''
 is_look = lambda t: t.startswith(('get_', 'list_'))
 calls = {m: ACT[m]['sdk_calls'] for m in ('Claude Opus 4.7', 'Claude Fable 5')}
 tools = sorted(set(calls['Claude Opus 4.7']) | set(calls['Claude Fable 5']),
-               key=lambda t: (is_look(t), -calls['Claude Fable 5'].get(t, 0), -calls['Claude Opus 4.7'].get(t, 0)))
+               key=lambda t: (is_look(t), -calls['Claude Fable 5'].get(t, 0), -calls['Claude Opus 4.7'].get(t, 0), t))
 vmax = max(max(c.values()) for c in calls.values())
 h = []
 ROWH = 25
@@ -314,8 +318,7 @@ for c in (0, 50, 100, 150, 200):
 s.append(f'<text x="{RX1}" y="{RY1 + 58}" text-anchor="end" class="w-axt">price per user (or seat) per month →</text>')
 s.append(f'<text x="0" y="0" class="w-axt" transform="translate({RX0 - 24} {RY1}) rotate(-90)">quality needed to subscribe →</text>')
 for i, (k, qmin, qmax, cmax) in enumerate(QG):
-    pts = [(cc, q_req(cc, cmax, qmin, qmax)) for cc in [cmax * j / 60 for j in range(61)]]
-    d = 'M' + ' L'.join(f'{rx(cc):.1f} {ry(q):.1f}' for cc, q in pts) + f' L{rx(cmax):.1f} {ry(1.3):.1f}'
+    d = smooth_path(lambda c: q_req(c, cmax, qmin, qmax), cmax, rx, ry)   # smoothed for display, ends at the price cap
     s.append(f'<path class="w-draw" pathLength="1" d="{d}" fill="none" stroke="{CAT[k][3]}" stroke-width="5" stroke-linejoin="round" style="--d:{.2 + i * .3:.2f}s"/>')
 # product quality line
 s.append(f'<g class="w-ql"{tag_in(1)} style="--y1:{ry(Q1) - ry(Q0):.1f}px;--y2:{ry(Q2) - ry(Q0):.1f}px">'
@@ -569,5 +572,5 @@ else:
     deck = deck[:j] + SEC + deck[j:]
     k = deck.index('/* ---------- sidebar + controls ---------- */')
     deck = deck[:k] + CSS + '\n' + deck[k:]
-DECK.write_text(deck)
-print('wrote', DECK, len(deck), 'slides:', len(slides))
+OUT.write_text(deck)
+print('wrote', OUT, len(deck), 'slides:', len(slides))

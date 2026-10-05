@@ -1,5 +1,7 @@
 import os
-import base64, json, math, re, random
+import base64, json, math, re, random, sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # src/, for smooth_curve
+from smooth_curve import smooth_path
 
 B = os.path.dirname(os.path.abspath(__file__)) + '/'
 # clone of tonychenxyz/ceo-bench-webpage (branch codex/latest-agent-trajectories)
@@ -113,8 +115,7 @@ svg.append('<text x="0" y="0" font-size="19" fill="#1f2328" transform="translate
 for c in (0, 50, 100, 150, 200):
     svg.append(f'<text x="{qx(c):.0f}" y="352" text-anchor="middle" font-size="14" fill="#1f2328">${c}</text>')
 for i, (col, name, qmin, qmax, cmax) in enumerate(QG):
-    pts = [(cc, q_req(cc, cmax, qmin, qmax)) for cc in [cmax * k / 60 for k in range(61)]]
-    d = 'M' + ' L'.join(f'{qx(cc):.1f} {qy(q):.1f}' for cc, q in pts) + f' L{qx(cmax):.1f} {qy(1):.1f}'
+    d = smooth_path(lambda c: q_req(c, cmax, qmin, qmax), cmax, qx, qy)   # smoothed for display, ends at the price cap
     svg.append(f'<path class="c-draw q" pathLength="1" d="{d}" fill="none" stroke="{col}" stroke-width="5" stroke-linejoin="round" style="--d:{.2 + i * .35:.2f}s"/>')
     svg.append(f'<line x1="540" x2="580" y1="{110 + i * 44}" y2="{110 + i * 44}" stroke="{col}" stroke-width="5"/>')
     svg.append(f'<text x="592" y="{117 + i * 44}" font-size="19" font-weight="600" fill="{col}">{name}</text>')

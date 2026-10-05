@@ -1,1 +1,3 @@
 src/part2/part2.html
+.preview-*.html
+src/*/out/preview/

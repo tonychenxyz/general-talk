@@ -1,9 +1,11 @@
+import os
 import base64, json, math, re, random
 
-B = '/tmp/claude-0/build/'
-FIG = '/home/claude/tonychenxyz/ceo-bench-webpage/assets/figures/'
-WEB = '/home/claude/tonychenxyz/ceo-bench-webpage/assets/'
-OUT = '/mnt/project-files/general-talk/part2.html'
+B = os.path.dirname(os.path.abspath(__file__)) + '/'
+# clone of tonychenxyz/ceo-bench-webpage (branch codex/latest-agent-trajectories)
+WEB = os.environ.get('CEO_WEBPAGE', '/home/claude/tonychenxyz/ceo-bench-webpage') + '/assets/'
+FIG = WEB + 'figures/'
+OUT = B + 'part2.html'  # build output, not committed; merge.py copies it into index.html
 
 b64 = lambda p: base64.b64encode(open(p, 'rb').read()).decode()
 AGENT_ICON = 'data:image/png;base64,' + b64(FIG + 'assets/llm-agent-icon.png')

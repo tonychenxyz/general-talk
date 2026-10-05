@@ -1,6 +1,8 @@
 # Copy part-2 CSS + sections from part2.html into general-talk.html (in place, part-1 untouched).
-G='/mnt/project-files/general-talk/general-talk.html'
-g=open(G).read(); p=open('/mnt/project-files/general-talk/part2.html').read()
+import os
+B=os.path.dirname(os.path.abspath(__file__))
+G=os.path.join(B,'..','..','index.html')
+g=open(G).read(); p=open(os.path.join(B,'part2.html')).read()
 cs='/* =====================================================================\n   PART 2'
 ce='/* ---------- sidebar + controls ---------- */'
 assert g.count(cs)==1 and p.count(cs)==1

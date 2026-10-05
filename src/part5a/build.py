@@ -43,10 +43,11 @@ S.append(f'''  <section class="slide p2" data-name="Discovery title">
 
 # ---------- 2. iPhone glitch video ----------
 S.append(f'''  <section class="slide p2" data-name="iPhone glitch">
-    <video class="sa-vid" src="media/iphone-glitch.mp4" poster="{POSTER}" playsinline preload="auto"></video>
+    <video class="sa-vid" src="media/iphone-glitch.mp4" poster="{POSTER}" playsinline preload="auto" controls></video>
     <script>(() => {{
       const s = document.currentScript.closest("section"), v = s.querySelector("video");
       let on = false;
+      v.addEventListener("click", e => e.stopPropagation());   // clicks on the player must not advance the slide
       new MutationObserver(() => {{
         const a = s.classList.contains("active");
         if (a === on) return;

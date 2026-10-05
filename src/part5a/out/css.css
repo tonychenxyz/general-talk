@@ -66,6 +66,7 @@
 .sa-good { background: var(--c-green-soft); }
 /* SWEeper-Bench title */
 .sa-icon { width: 170px; height: auto; margin-bottom: 26px; }
-.sa-hl { background: linear-gradient(var(--mark), var(--mark)) no-repeat 0 82% / 0 36%; transition: background-size .8s var(--ease); }
-.sa-swe .sa-hl { background-size: 100% 36%; }
+.sa-hl, .sa-lt { transition: font-weight .8s var(--ease); }
+.sa-swe .sa-hl { font-weight: 800; }
+.sa-swe .sa-lt { font-weight: 400; }
 .sa-tslide .sa-sub b { font-weight: 700; }

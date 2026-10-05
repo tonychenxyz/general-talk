@@ -15,13 +15,16 @@ from engine import Game                             # noqa: E402
 HERE = pathlib.Path(__file__).resolve().parent
 
 
-def run(alloc, noise=0.0, seed=0):
+def run(alloc, noise=0.0, seed=0, n=None):
+    """alloc: one {skill: hours} dict played every week, or a list of them (one per week, n = len)."""
+    plan = alloc if isinstance(alloc, list) else None
     g = Game(containers(), seed=seed, **{**KW, 'noise': noise})
     weeks = []
-    while not g.done():
+    while not g.done() and len(weeks) < (n or len(plan or []) or g.rounds):
         before = {i: c['level'] for i, c in g.c.items()}
-        pay = g.play(alloc)
-        weeks.append({'grown': {i: round(before[i] + (g.c[i]['level'] / (1 - g.leak) - before[i]), 3) for i in g.c},
+        a = plan[len(weeks)] if plan else alloc
+        pay = g.play(a)
+        weeks.append({'alloc': {i: a.get(i, 0) for i in g.c}, 'grown': {i: round(before[i] + (g.c[i]['level'] / (1 - g.leak) - before[i]), 3) for i in g.c},
                       'level': {i: round(c['level'], 3) for i, c in g.c.items()},
                       'pay': {i: round(v, 3) for i, v in pay.items()}, 'total': round(g.score, 3)})
     return weeks
@@ -36,12 +39,13 @@ def mean_score(alloc, n=50):
     return round(statistics.mean(out), 1)
 
 
-# 'week': the one example week on the slide (4/3/2/1/0 hours), 'easy'/'hard': all 10 h on the x1 / x20 skill
-strats = {'week': dict(zip(LABELS, (4, 3, 2, 1, 0))), 'spread': {L: 2 for L in LABELS},
-          'easy': {LABELS[0]: 10}, 'hard': {LABELS[-1]: 10}}
+# 'example': the first 4 weeks shown on the slide (one illustrative split of the 10 hours per week, in SPEC order),
+# 'spread': 2 h on every skill, 'easy'/'hard': all 10 h on the x1 / x20 skill (20 weeks each, for the notes)
+EXAMPLE = [(4, 3, 1, 1, 1), (3, 3, 2, 1, 1), (2, 3, 2, 1, 2), (2, 2, 2, 1, 3)]
+strats = {'spread': {L: 2 for L in LABELS}, 'easy': {LABELS[0]: 10}, 'hard': {LABELS[-1]: 10}}
 D = {'spec': [{'id': L, 'bar': b, 'rate': r} for L, (b, r) in zip(LABELS, SPEC)], 'kw': KW,
      'grow': {h: round(KW['g'] * (1 - __import__('math').exp(-h / KW['k'])), 3) for h in range(11)},
-     'runs': {k: run(a) for k, a in strats.items()},
+     'runs': {'example': run([dict(zip(LABELS, a)) for a in EXAMPLE]), **{k: run(a) for k, a in strats.items()}},
      'mean_score_noisy': {k: mean_score(a) for k, a in strats.items()}}
 (HERE / 'data.json').write_text(json.dumps(D, indent=1))
 for k in strats:

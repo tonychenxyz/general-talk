@@ -147,7 +147,7 @@ svg.append('<text x="0" y="0" font-size="19" fill="#1f2328" transform="translate
 svg.append(f'<path class="c-draw cc" pathLength="1" d="{dag}" fill="none" stroke="var(--c-blue)" stroke-width="5" stroke-linejoin="round" style="--d:.2s"/>')
 svg.append(f'<path class="c-draw cc" pathLength="1" d="{dexp}" fill="none" stroke="var(--c-red)" stroke-width="4" stroke-linejoin="round" style="--d:.7s"/>')
 svg.append(f'<text x="{cx(500) + 8:.0f}" y="{cy(ag[-1][1]) + 6:.0f}" font-size="19" font-weight="600" fill="var(--c-blue)">product quality</text>')
-svg.append(f'<rect x="{cx(290):.0f}" y="{cy(.72):.0f}" width="{cx(365)-cx(290):.0f}" height="{cy(.58)-cy(.72):.0f}" rx="8" fill="var(--c-red)" opacity=".12"/><text x="{cx(327):.0f}" y="{cy(.58) + 26:.0f}" text-anchor="middle" font-size="19" fill="var(--c-red)">customers leave</text>')
+svg.append(f'<g class="c-leave"><rect x="{cx(290):.0f}" y="{cy(.72):.0f}" width="{cx(365)-cx(290):.0f}" height="{cy(.58)-cy(.72):.0f}" rx="8" fill="var(--c-red)" opacity=".12"/><text x="{cx(327):.0f}" y="{cy(.58) + 26:.0f}" text-anchor="middle" font-size="19" fill="#1f2328">customers leave</text></g>')
 svg.append(f'<text x="{cx(500) + 8:.0f}" y="{cy(exp_pts[-1][1]) + 26:.0f}" font-size="19" font-weight="600" fill="var(--c-red)">customer expectation</text>')
 svg.append('</svg></div>')
 COMP = ''.join(svg)
@@ -248,7 +248,7 @@ added = {
     'F': ['Claude Fable 5.1'],
 }
 step_of = {'A': 1, 'D': 2, 'E': 3, 'F': 6}
-date_lbl = {'A': 'June 2026 🗓️', 'D': 'August', 'E': 'Today 🤫', 'F': 'Today'}
+date_lbl = {'A': '🗓️ June 2026', 'D': '🗓️ August 2026', 'E': '🗓️ October 2026', 'F': '🗓️ October 2026'}
 X0, X1, YT, YB = 120, 1080, 140, 780
 def X(d): return X0 + d / 500 * (X1 - X0)
 def Y(c, top=9): return YB - (math.log10(max(c, 1e3)) - 3) / (top - 3) * (YB - YT)

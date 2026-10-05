@@ -47,27 +47,29 @@ def tone(r, i):
     return ' seen' if i == 1 else (' pass' if r['fixed'] else ' fail') if i == 4 else ''
 
 
-def big_row(r, start, end, stepwise):
-    """One model's five cards, large. stepwise: card i appears at start+i, else all at start."""
-    h = [f'<div class="rc-big"{tag_in(start, end)}>', head(r, 'rc-bh', rest_in=start + 4 if stepwise else None)]
+CH = 500                            # big-card height (same for every row; fits the tallest card's content)
+BT = 150 + (690 - (46 + 30 + (CH or 500))) // 2   # header top: header + gap + cards centered in y 150..840
+
+
+def big_row(r, start, end):
+    """One model's five cards, large; card i appears at start+i."""
+    h = [f'<div class="rc-big"{tag_in(start, end)}>', head(r, 'rc-bh', rest_in=start + 4), '<div class="rc-row">']
     for i, c in enumerate(r['cards']):
-        st = start + i if stepwise else start
-        x = X0 + i * (CW + AW)
+        st = start + i
         q = wbr(c['quote'])
         q = f'<code>{q}</code>' if c['code'] else f'“{q}”'
         if i:
-            h.append(f'<span class="rc-arr"{tag_in(st)} style="left:{x - AW}px">{ARROW}</span>')
-        h.append(f'<div class="rc-card{tone(r, i)}"{tag_in(st)} style="left:{x}px">'
+            h.append(f'<span class="rc-arr"{tag_in(st)}>{ARROW}</span>')
+        h.append(f'<div class="rc-card{tone(r, i)}"{tag_in(st)}>'
                  f'<div class="rc-sum">{wbr(c["summary"])}</div>'
                  f'<div class="rc-q{" code" if c["code"] else ""}">{q}</div></div>')
-    h.append('</div>')
+    h.append('</div></div>')
     return ''.join(h)
 
 
-# steps: Fable cards 0-4, GLM cards 5-9, Opus row 10, Astra row 11, all four 12, shaded column 13
-FS = 12
-h = [big_row(ROWS[0], 0, 5, True), big_row(ROWS[1], 5, 10, True), big_row(ROWS[2], 10, 11, False),
-     big_row(ROWS[3], 11, FS, False)]
+# steps: Fable cards 0-4, GLM 5-9, Opus 10-14, Astra 15-19, all four 20, shaded column 21
+FS = 20
+h = [big_row(r, 5 * k, 5 * k + 5) for k, r in enumerate(ROWS)]
 h.append(f'<div class="rc-all"{tag_in(FS)}>')
 for k, r in enumerate(ROWS):
     top = 152 + k * 166
@@ -95,14 +97,22 @@ notes = [
     'It traces it to AddMemberToBoard, which should add the board to the new user’s default category.',
     'And it decides to fix it. Also fixed.',
     # Opus 5
-    'Now Claude Opus 5. It also joins as Carol, and the sidebar is still empty after joining. But it trusts the unit tests, which never check the sidebar, so it concludes the empty sidebar is intended: “changing it would be a product decision, not a bug fix.” Existing tests can reinforce the wrong expectation.',
+    'Now Claude Opus 5. It also joins the open board as Carol.',
+    'And the sidebar is still empty after joining. Same observation again.',
+    'But it trusts the unit tests, which use strict mocks and never check the sidebar.',
+    'So it concludes the empty sidebar is intended: “this is the intended behaviour of this version rather than a regression.”',
+    'And it decides not to fix it: “changing it would be a product decision, not a bug fix.” Existing tests can reinforce the wrong expectation. Unfixed.',
     # Astra
-    'And GPT-6 Astra. It sees the empty sidebar and moves on without comment. It focuses on the share dialog instead, finds a role-permissions bug, and fixes other bugs instead. So it leaves this one unfixed.',
+    'Finally, GPT-6 Astra. It opens the board as the invited member.',
+    'It sees the empty sidebar, and moves on without comment.',
+    'It focuses on the Share dialog’s member list instead.',
+    'There it finds a role-permissions bug.',
+    'And it decides to fix those other bugs instead. So it leaves this one unfixed.',
     # all four
     'Side by side: two agents fixed it, two left it unfixed.',
     'And all four reached the empty sidebar. Seeing a bug is not the same as recognizing it.',
 ]
-marks = {'GLM 5.3': 5, 'Claude Opus 5': 10, 'GPT-6 Astra': 11, 'All four': FS}
+marks = {'GLM 5.3': 5, 'Claude Opus 5': 10, 'GPT-6 Astra': 15, 'All four': FS}
 slides.append(f'''  <section class="slide p2" data-name="Seeing vs recognizing" data-classes='{{"rc-seen": {FS + 1}}}' data-marks='{json.dumps(marks)}'>
     <div class="c-kicker">Focalboard: a shared board never shows up in the recipient’s sidebar</div>
     <div class="c-h">Seeing a bug is not the same as recognizing it</div>
@@ -110,18 +120,20 @@ slides.append(f'''  <section class="slide p2" data-name="Seeing vs recognizing" 
 ''' + '\n'.join(f'    <div class="note" data-at="{i}">{esc(n)}</div>' for i, n in enumerate(notes)) + '\n  </section>')
 css.append(f'''
 .rc-big {{ position: absolute; left: 0; top: 0; width: 1600px; height: 900px; }}
-.rc-bh {{ position: absolute; left: {X0}px; top: 180px; height: 46px; display: flex; align-items: center; font-size: 30px; white-space: pre; letter-spacing: -.01em; }}
+.rc-bh {{ position: absolute; left: {X0}px; top: {BT}px; height: 46px; display: flex; align-items: center; font-size: 30px; white-space: pre; letter-spacing: -.01em; }}
 .rc-bh b, .rc-sh b {{ font-weight: 600; }}
 .rc-logo {{ flex: none; display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; border: 2px solid; border-radius: 50%; margin-right: 14px; background: #fff; }}
 .rc-logo img {{ width: 26px; height: 26px; }}
-.rc-card {{ position: absolute; top: 256px; width: {CW}px; height: 540px; background: #f2f3f5; border: 2px solid #f2f3f5; border-radius: 16px; padding: 22px 18px; display: flex; flex-direction: column; transition: opacity .45s ease; }}
+.rc-row {{ position: absolute; left: {X0}px; top: {BT + 76}px; width: 1400px; display: flex; align-items: stretch; }}
+.rc-card {{ flex: none; width: {CW}px; height: {f'{CH}px' if CH else 'auto'}; box-sizing: border-box; background: #f2f3f5; border: 2px solid #f2f3f5; border-radius: 16px; padding: 22px 18px; display: flex; flex-direction: column; transition: opacity .45s ease; }}
 .rc-card.seen, .rc-sc.seen {{ background: #eef2f6; border-color: #bec6d1; }}
 .rc-card.pass, .rc-sc.pass {{ background: #ebf8ef; border-color: #b9dfc5; }}
 .rc-card.fail, .rc-sc.fail {{ background: #fff0ef; border-color: #e8b8b8; }}
 .rc-sum {{ font-size: 30px; line-height: 1.24; letter-spacing: -.01em; min-height: 172px; }}
 .rc-q {{ background: #fff; border: 1.5px solid #d8dfe7; border-radius: 10px; padding: 12px 14px; font-size: 24px; line-height: 1.32; overflow-wrap: anywhere; }}
 .rc-q.code code {{ font-family: "JetBrains Mono", monospace; font-size: 21px; line-height: 1.4; letter-spacing: -.02em; white-space: pre-wrap; }}
-.rc-arr {{ position: absolute; top: 512px; width: {AW}px; display: flex; justify-content: center; }}
+.rc-arr {{ flex: none; width: {AW}px; display: flex; align-items: center; justify-content: center; }}
+.rc-all .rc-arr {{ position: absolute; }}
 .rc-arr svg {{ width: 28px; height: 28px; fill: none; stroke: #1f2328; stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }}
 .rc-arr.sm svg {{ width: 22px; height: 22px; }}
 .rc-arr.sm {{ height: 100px; align-items: center; }}
@@ -195,6 +207,17 @@ css.append('''
 .rc-axt { font-size: 26px; }
 .rc-leg { font-size: 28px; }
 .rc-band-t { font-size: 26px; font-weight: 600; }''')
+
+# =====================================================================================
+# 3. SWEeper-Bench conclusion
+# =====================================================================================
+slides.append('''  <section class="slide p2" data-name="SWEeper-Bench takeaway">
+    <div class="rc-concl"><p>Even on tasks we think are well solved, <b>open-endedness</b> presents significant challenges.</p></div>
+    <div class="note" data-at="0">So the takeaway from SWEeper-Bench: even on tasks we think are well solved, like fixing bugs in a codebase, open-endedness presents significant challenges. When nobody tells the agent what the bug is, it has to find and recognize the problem itself, and that is where today’s agents fall short.</div>
+  </section>''')
+css.append('''
+.rc-concl { position: absolute; left: 200px; right: 200px; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 60px; font-weight: 500; line-height: 1.3; letter-spacing: -.02em; color: #1f2328; text-wrap: balance; }
+.rc-concl b { font-weight: 700; }''')
 
 out = HERE / 'out'
 out.mkdir(exist_ok=True)

@@ -59,6 +59,15 @@ for m in ['Claude Opus 4.7', 'Claude Fable 5']:
                 c.update(re.findall(r'\bnm\.(?:\w+\.)?(\w+)\s*\(', a['arguments'].get('command', '')))
     c.pop('query', None)
     act[m]['sdk_calls'] = dict(c.most_common())
+    # number of weekly turns (days 0, 7, ..., 504) in which each SDK function was called at least once
+    wk = collections.Counter()
+    for day in d['days'].values():
+        used = set()
+        for a in day['actions']:
+            if a['tool'] == 'bash':
+                used.update(re.findall(r'\bnm\.(?:\w+\.)?(\w+)\s*\(', a['arguments'].get('command', '')))
+        used.discard('query'); wk.update(used)
+    act[m]['sdk_weeks'] = dict(wk.most_common())
 out['activity'] = act
 
 # ---- 3. best-run cash curves (same source as the leaderboard slide) ----
@@ -72,7 +81,7 @@ def cat(g):
     if g in ('S1', 'S2', 'S3'): return g
     if g.startswith('D_S'): return 'D'
     return 'E'
-groups, revenue = {}, {}
+groups, revenue, groups_by_id = {}, {}, {}
 for m in ['GPT-5.6 Sol', 'GPT-6 Sol', 'Claude Fable 5', 'Claude Fable 5.1']:
     rid = BEST[m]; d = view(rid)
     by = collections.defaultdict(collections.Counter)
@@ -89,7 +98,14 @@ for m in ['GPT-5.6 Sol', 'GPT-6 Sol', 'Claude Fable 5', 'Claude Fable 5.1']:
         ent = lambda day, w=S[rid]['ent_seats']: (w[min(day // 7, len(w) - 1)] or 0)
     groups[m] = [dict(day=day, **{k: by[day].get(k, 0) for k in ('S1', 'S2', 'S3', 'D')}, E=ent(day))
                  for day in range(0, 505, 7) if day in by]
-out['groups'], out['revenue'] = groups, revenue
+    # same, but every individual group on its own (S1..S3, D_S01..D_S10); enterprise seats only exist as one total
+    byg = collections.defaultdict(collections.Counter)
+    for x in d['customer_series_by_group']:
+        byg[x['day']][x['group_id']] += x['count']
+    gids = sorted({x['group_id'] for x in d['customer_series_by_group']})
+    groups_by_id[m] = [dict(day=day, **{g: byg[day].get(g, 0) for g in gids}, E=ent(day))
+                       for day in range(0, 505, 7) if day in byg]
+out['groups'], out['revenue'], out['groups_by_id'] = groups, revenue, groups_by_id
 
 # ---- 5. targeted development (quality bought for a specific group), daily budget by category ----
 def dev_series(rid):

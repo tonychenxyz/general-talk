@@ -3,7 +3,7 @@
 Sources (sweeper-bench-plotting repo):
   analysis/task_domains/manifest.json + repo_stars.csv  -> data.json["domains"], data.json["median_stars"]  (paper Fig. 4)
   assets/focalboard-056/build_procedure.py panel table   -> data.json["panels"]                             (paper Fig. 5)
-  assets/focalboard-056/<frame>.png                      -> img/<frame>.png (downscaled) + img/<frame>-zoom.png (native crop)
+  assets/focalboard-056/<frame>.png                      -> img/<frame>.png (downscaled), <frame>-lg.png (1280x800) + img/<frame>-zoom.png (native crop)
   assets/autonomous-sweep.png, browser-agent-cursor.png -> img/                                              (paper Fig. 1)
 """
 import csv, json, pathlib, statistics
@@ -36,6 +36,7 @@ for _, name, (x, y, w, h), _ in PANELS:
     assert im.size == (1920, 1200)
     im.crop((x, y, x + w, y + h)).save(IMG / f'{name}-zoom.png', optimize=True)
     im.resize((800, 500), Image.LANCZOS).save(IMG / f'{name}.png', optimize=True)
+    im.resize((1280, 800), Image.LANCZOS).save(IMG / f'{name}-lg.png', optimize=True)   # full-screen step views
 
 broom = Image.open(SRC / 'assets/autonomous-sweep.png')
 broom.thumbnail((240, 240), Image.LANCZOS)

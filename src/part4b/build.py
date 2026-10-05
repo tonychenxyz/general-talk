@@ -78,7 +78,7 @@ for (fam, ms), fy in zip(FAMILIES, FAM_Y):
     old, new = ms
     d = round(share_b[new] * 100) - round(share_b[old] * 100)
     h.append(f'<div class="tb-delta tb-mean" style="top:{ROWY[new] - 22:.0f}px">+{d} pts</div>')
-legend = (f'<div class="tb-legend"><span><i style="background:{B}"></i><b>Coding</b>: big, delayed payoff</span>'
+legend = (f'<div class="tb-legend"><span><i style="background:{B}"></i><b>Coding</b>: big, delayed payoff, high upfront cost</span>'
           f'<span><i style="background:{OTHER["A"]}"></i>cooking, running, guitar, Spanish</span></div>')
 f5, f51, g56, g6 = (share_b[m] for m in ('Fable 5', 'Fable 5.1', 'GPT-5.6 Sol', 'GPT-6 Sol'))
 slides.append(f'''  <section class="slide p2" data-name="Practice: allocation" data-classes='{{"tb-all":1,"tb-avg":2}}' data-marks='{{"All 20 weeks":1,"Mean":2}}'>
@@ -103,7 +103,7 @@ css.append(f'''
 .tb-legend b {{ font-weight: 600; }}
 .tb-legend i {{ display: inline-block; width: 18px; height: 18px; border-radius: 4px; margin-right: 10px; vertical-align: -3px; }}
 .tb-lg2 {{ color: #6b737c; }}
-.tb-delta {{ position: absolute; left: 1460px; font-size: 22px; font-weight: 700; color: var(--text); background: var(--c-green-soft); padding: 4px 12px; border-radius: 999px; white-space: nowrap; }}
+.tb-delta {{ position: absolute; left: 1460px; font-size: 22px; font-weight: 700; color: var(--text); background: #f3f5f7; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }}
 .tb-wk {{ opacity: 0; transform: translateX(-10px); transition: opacity .35s ease var(--d), transform .35s var(--ease) var(--d); }}
 .tb-all .tb-wk {{ opacity: 1; transform: none; }}
 .tb-w1, .tb-all .tb-wk {{ transition: opacity .5s ease, transform .35s var(--ease) var(--d); }}
@@ -137,7 +137,7 @@ css.append('''
 .tb-col .e { font-size: 64px; line-height: 1; }
 .tb-col b { font-size: 36px; font-weight: 600; }
 .tb-col span { font-size: 28px; line-height: 1.3; }
-.tb-col.new { border-color: var(--c-green); background: var(--c-green-soft); }
+.tb-col.new { border-color: #1f2328; border-width: 4px; }
 .tb-pill { margin-top: 60px; font-size: 34px; padding: 14px 34px; border-radius: 999px; background: #f3f5f7; }
 .tb-pill b { font-weight: 700; }''')
 

@@ -38,11 +38,6 @@ best = B[0]
 assert best['rank'] == 1 and best['name'] == 'Grok 4.6' and len(B) == 15
 
 s = ['<svg class="rb-svg" viewBox="0 0 1600 900">']
-# 50% line + "below half" shading (step 3)
-s.append(f'<g{tag_in(3)}><rect x="{L}" y="{yp(50):.1f}" width="{R - L}" height="{BOT - yp(50):.1f}" fill="var(--c-red-soft)" opacity=".55"/>'
-         f'<line x1="{L}" x2="{R}" y1="{yp(50):.1f}" y2="{yp(50):.1f}" stroke="var(--c-red)" stroke-width="2.5" stroke-dasharray="9 7"/>'
-         f'<text x="{R - 20}" y="{BOT - 66}" text-anchor="end" class="rb-call"><tspan x="{R - 20}">{len(below)} of {len(B)} agents</tspan>'
-         f'<tspan x="{R - 20}" dy="34">pass under 50%</tspan></text></g>')
 for t in (30, 40, 50, 60):
     s.append(f'<line x1="{L}" x2="{R}" y1="{yp(t):.1f}" y2="{yp(t):.1f}" stroke="#e5e8ed"/>'
              f'<text x="{L - 16}" y="{yp(t) + 7:.1f}" text-anchor="end" class="rb-tick">{t}%</text>')
@@ -74,15 +69,14 @@ for r in B:
     rows.append(f'<div class="rb-row{cls}"{tag_in(1)} style="top:{y - 19:.0f}px"><span class="rb-n">{r["rank"]}</span>'
                 f'<img src="{logo_uri(r["logo"])}" alt=""><b>{esc(r["name"])}</b><span class="rb-p">{r["pass_pct"]:.1f}%</span></div>')
 mid = [r for r in B if r['pass_pct'] == 56.5]
-slides.append(f'''  <section class="slide p2" data-name="SWEeper-Bench results" data-classes='{{"rb-top": 2, "rb-half": 3}}' data-marks='{{"Best agent": 2, "Below half": 3}}'>
+slides.append(f'''  <section class="slide p2" data-name="SWEeper-Bench results" data-classes='{{"rb-top": 2}}' data-marks='{{"Best agent": 2}}'>
     <div class="c-kicker">15 agents, 200 tasks</div>
     <div class="c-h">SWEeper-Bench is far from solved</div>
     {''.join(s)}
     <div class="rb-list">{''.join(rows)}</div>
     <div class="note" data-at="0">Here are the results. Each agent pairs a frontier model with its native harness, or Codex if it has none. On the x axis, mean cost per task, log scale; on the y axis, pass rate. A task passes only if both the target behavior test and the preservation test pass. Cost is the prediction cost only.</div>
     <div class="note" data-at="1">Each logo is one agent, numbered by rank. Cost varies a lot: agents with similar pass rates differ in cost by more than 30 times, and {mid[1]['name']} matches {mid[0]['name']} at more than twice the cost.</div>
-    <div class="note" data-at="2">The best agent, {best['name']} with Cursor, passes only {best['pass_pct']:.1f}% of tasks. {B[1]['name']} follows at {B[1]['pass_pct']:.1f}%, then three agents at 56.5%.</div>
-    <div class="note" data-at="3">And {len(below)} of {len(B)} agents pass fewer than half of the tasks. Nearly all failures come from the target behavior test; preservation pass rates stay between 97.5 and 100%. Agents rarely break working features, but they often miss the bug they were asked to find.</div>
+    <div class="note" data-at="2">The best agent, {best['name']} with Cursor, passes only {best['pass_pct']:.1f}% of tasks. {B[1]['name']} follows at {B[1]['pass_pct']:.1f}%, then three agents at 56.5%. And {len(below)} of {len(B)} agents pass fewer than half of the tasks. Nearly all failures come from the target behavior test; preservation pass rates stay between 97.5 and 100%. Agents rarely break working features, but they often miss the bug they were asked to find.</div>
   </section>''')
 css.append('''
 .rb-svg { position: absolute; inset: 0; width: 1600px; height: 900px; overflow: visible; }

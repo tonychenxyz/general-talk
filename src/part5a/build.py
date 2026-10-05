@@ -122,14 +122,14 @@ S.append(f'''  <section class="slide p2 sa-story" data-name="RSVP story" data-cl
     </svg>
     <div class="sa-you"><div class="sa-e">👩</div><div class="sa-lb">You</div></div>
     <div class="sa-claude">{CLAUDE}<div class="sa-lb">Claude</div></div>
-    <div class="sa-bub rise" data-out="1">Hey Claude, can you make us an RSVP site for the wedding?</div>
+    <div class="sa-bub rise" data-out="1">Hey Claude, can you make us an RSVP site for the birthday party?</div>
     <div class="sa-bub rise" data-in="5" data-out="7">Um, Claude? Grandma can’t find the send button…</div>
     <div class="sa-bub rise" data-in="8" data-out="9">Find and fix issues in the RSVP page.</div>
     <div class="sa-wait rise" data-in="6" data-out="7">Everyone waits</div>
     <div class="sa-phone rise" data-in="1">
       <div class="sa-notch"></div>
       <div class="sa-ttl">RSVP</div>
-      <div class="sa-who">Lia &amp; Tom</div>
+      <div class="sa-who">Maya’s 30th</div>
       <div class="sa-date">Saturday, June 14</div>
       <div class="sa-field">Your name</div>
       <div class="sa-yn"><span class="on">Yes</span><span>No</span></div>
@@ -143,7 +143,7 @@ S.append(f'''  <section class="slide p2 sa-story" data-name="RSVP story" data-cl
 {chr(10).join(cards)}
     </div>
     </div>
-{notes((0, "These days, when we need a bit of software, we just ask for it: “Hey Claude, can you make us an RSVP site for the wedding?”"),
+{notes((0, "These days, when we need a bit of software, we just ask for it: “Hey Claude, can you make us an RSVP site for the birthday party?”"),
        (1, "A few minutes later, it's done."),
        (2, "And off it goes, to everyone on the guest list. Then people actually use it. Grandma, on an old iPad, text turned way up. A cousin in Tokyo. Two friends, hitting send at the same moment. Someone on a train, tapping twice."),
        (3, "Each of them finds something different."),
@@ -160,7 +160,7 @@ S.append(f'''  <section class="slide p2 sa-story" data-name="RSVP story" data-cl
 S.append(f'''  <section class="slide p2 sa-tslide" data-name="SWEeper-Bench title" data-classes='{{"sa-swe":1}}'>
     <div class="title">
       <img class="sa-icon" src="{ICON}" alt="">
-      <h1><span class="sa-hl">SWE</span>eper-Bench</h1>
+      <h1><span class="sa-hl">SWE</span><span class="sa-lt">eper-Bench</span></h1>
       <div class="by sa-sub rise" data-in="1"><b>S</b>oft<b>w</b>are <b>e</b>ngineering… with a broom</div>
     </div>
 {notes((0, "That's the idea behind SWEeper-Bench. The full title of the paper: can agents discover bugs in interactive software?"), (1, "S, W, E: software engineering… with a broom."))}
@@ -235,8 +235,9 @@ CSS = r'''
 .sa-good { background: var(--c-green-soft); }
 /* SWEeper-Bench title */
 .sa-icon { width: 170px; height: auto; margin-bottom: 26px; }
-.sa-hl { background: linear-gradient(var(--mark), var(--mark)) no-repeat 0 82% / 0 36%; transition: background-size .8s var(--ease); }
-.sa-swe .sa-hl { background-size: 100% 36%; }
+.sa-hl, .sa-lt { transition: font-weight .8s var(--ease); }
+.sa-swe .sa-hl { font-weight: 800; }
+.sa-swe .sa-lt { font-weight: 400; }
 .sa-tslide .sa-sub b { font-weight: 700; }
 '''
 

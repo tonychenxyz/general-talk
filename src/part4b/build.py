@@ -77,7 +77,7 @@ for (fam, ms), fy in zip(FAMILIES, FAM_Y):
         h.append(f'<div class="tb-name" style="top:{ROWY[m] + H / 2 - 18:.0f}px"><span class="tb-dot" style="background:{COL[m]}"></span>{m}</div>')
     old, new = ms
     d = round(share_b[new] * 100) - round(share_b[old] * 100)
-    h.append(f'<div class="tb-delta tb-mean" style="top:{ROWY[new] - 22:.0f}px">+{d} pts</div>')
+    h.append(f'<div class="tb-delta tb-mean" style="top:{ROWY[new] - 22:.0f}px">+{d}%</div>')
 legend = (f'<div class="tb-legend"><span><i style="background:{B}"></i><b>Coding</b>: big, delayed payoff, high upfront cost</span>'
           f'<span><i style="background:{OTHER["A"]}"></i>cooking, running, guitar, Spanish</span></div>')
 f5, f51, g56, g6 = (share_b[m] for m in ('Fable 5', 'Fable 5.1', 'GPT-5.6 Sol', 'GPT-6 Sol'))

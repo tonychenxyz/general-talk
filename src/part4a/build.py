@@ -214,7 +214,7 @@ body += [f'<div class="note" data-at="{i}">{n}</div>' for i, n in enumerate(note
 classes = {f'ta-w{w}': w for w in range(1, NW + 1)}
 classes.update({'ta-end': S_END})
 sec = (f'''  <section class="slide p2" data-name="Toy test: practice" data-classes='{json.dumps(classes)}' data-marks='{{"Toy test":0,"Weeks":1,"Now vs later":{S_END}}}'>
-    <div class="c-kicker">A toy test, outside business</div>
+    <div class="c-kicker">A toy test outside business</div>
     <div class="c-h">Personal coaching: where should 10 practice hours a week go?</div>
 ''' + '\n'.join('    ' + b for b in body) + '\n  </section>\n')
 (HERE / 'out').mkdir(exist_ok=True)

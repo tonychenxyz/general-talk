@@ -43,7 +43,7 @@ S.append(f'''  <section class="slide p2" data-name="Discovery title">
 
 # ---------- 2. iPhone glitch video ----------
 S.append(f'''  <section class="slide p2" data-name="iPhone glitch">
-    <video class="sa-vid" poster="{POSTER}" playsinline preload="auto" controls>
+    <video class="sa-vid" poster="{POSTER}" playsinline preload="auto" controls muted>
       <source src="media/iphone-glitch.mp4" type="video/mp4">
       <source src="https://cdn.jsdelivr.net/gh/tonychenxyz/general-talk@main/media/iphone-glitch.mp4" type="video/mp4">
     </video>

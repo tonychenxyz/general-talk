@@ -1,0 +1,17 @@
+.oq-deco { position: absolute; inset: 0; width: 1600px; height: 900px; pointer-events: none; }
+.oq-tw { animation: oq-tw 4.5s ease-in-out var(--d, 0s) infinite alternate; }
+@keyframes oq-tw { from { opacity: .45; } to { opacity: 1; } }
+.oq-lens { animation: oq-lens 18s ease-in-out infinite alternate; }
+@keyframes oq-lens { 0% { transform: translate(260px, 700px); } 33% { transform: translate(1260px, 160px); } 66% { transform: translate(1380px, 720px); } 100% { transform: translate(220px, 230px); } }
+.oq-arc { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ease) var(--d, 0s); }
+.oq-on.active .oq-arc { stroke-dashoffset: 0; }
+.oq, .title { z-index: 1; }
+.oq { position: absolute; left: 160px; right: 160px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.oq-k { font-size: 28px; font-weight: 500; margin-bottom: 26px; }
+.oq-q { font-size: 54px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; max-width: 1200px; }
+.oq-ins { display: inline-grid; grid-template-columns: 0fr; transition: grid-template-columns 1s var(--ease); vertical-align: bottom; }
+.oq-ins > span { overflow: hidden; white-space: nowrap; }
+.oq-grow .oq-ins { grid-template-columns: 1fr; }
+.oq-grow .oq-ins > span { white-space: normal; }
+.oq-sub { list-style: none; margin-top: 64px; display: flex; flex-direction: column; gap: 26px; max-width: 1150px; }
+.oq-sub li { font-size: 32px; line-height: 1.35; }

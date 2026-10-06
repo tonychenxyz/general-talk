@@ -10,7 +10,7 @@ replace only those blocks.
 import argparse, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PARTS = ['part4a', 'part4b', 'part5a', 'part5b', 'part6a', 'part6b', 'part6c']          # deck order, all after part 3
+PARTS = ['part4a', 'part4b', 'part5a', 'part5b', 'part6a', 'part6b', 'part6c', 'part7']          # deck order, all after part 3
 ANCHOR_SEC = '  <!-- part3:end -->\n'
 ANCHOR_CSS = '/* ---------- sidebar + controls ---------- */'
 

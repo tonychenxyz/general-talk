@@ -352,7 +352,7 @@ def smooth_q(qfun, cmax, c, n=240, sigma_frac=0.08):
 s = ['<svg class="w-svg" viewBox="0 0 1600 900">']
 # area the product can serve (below the product-quality line), grows with the line
 s.append(f'<rect class="w-reach" x="{RX0}" y="{ry(Q0):.1f}" width="{RX1 - RX0}" height="{RY1 - ry(Q0):.1f}" fill="#eaf1fc"'
-         f' style="--s1:{(RY1 - ry(Q1)) / (RY1 - ry(Q0)):.4f};--s2:{(RY1 - ry(Q2)) / (RY1 - ry(Q0)):.4f}"{tag_in(1)}/>')
+         f' style="--s1:{(RY1 - ry(Q1)) / (RY1 - ry(Q0)):.4f};--s2:{(RY1 - ry(Q2)) / (RY1 - ry(Q0)):.4f}"{tag_in(2)}/>')
 s.append(f'<line x1="{RX0}" y1="{RY1}" x2="{RX1}" y2="{RY1}" stroke="#1f2328" stroke-width="2"/><line x1="{RX0}" y1="{RY1}" x2="{RX0}" y2="{RY0}" stroke="#1f2328" stroke-width="2"/>')
 for c in (0, 50, 100, 150, 200):
     s.append(f'<text x="{rx(c):.0f}" y="{RY1 + 26}" text-anchor="middle" class="w-tick">${c}</text>')
@@ -363,7 +363,7 @@ for i, (k, qmin, qmax, cmax) in enumerate(QG):
     d = smooth_path(lambda c: q_req(c, cmax, qmin, qmax), cmax, rx, ry)   # smoothed for display, ends at the price cap
     s.append(f'<path class="w-draw" pathLength="1" d="{d}" fill="none" stroke="{RG[k][2]}" stroke-width="5" stroke-linejoin="round" style="--d:{.2 + i * .3:.2f}s"/>')
 # product quality line
-s.append(f'<g class="w-ql"{tag_in(1)} style="--y1:{ry(Q1) - ry(Q0):.1f}px;--y2:{ry(Q2) - ry(Q0):.1f}px">'
+s.append(f'<g class="w-ql"{tag_in(2)} style="--y1:{ry(Q1) - ry(Q0):.1f}px;--y2:{ry(Q2) - ry(Q0):.1f}px">'
          f'<line x1="{RX0}" x2="{RX1}" y1="{ry(Q0):.1f}" y2="{ry(Q0):.1f}" stroke="#1f2328" stroke-width="3.5" stroke-dasharray="12 8"/>'
          f'<text x="{RX1 - 12}" y="{ry(Q0) - 14:.1f}" text-anchor="end" class="w-plab" style="font-weight:600">your product</text></g>')
 # labels with leader lines to the curves: (groups, label box left/top in stage px, label anchor point, price on each curve)
@@ -378,25 +378,25 @@ for ks, (lx, ly), (ax, ay), prices in LBL:
     for k, c in zip(ks, prices):
         qmin, qmax, cmax = QGD[k]
         c, q = smooth_q(lambda x: q_req(x, cmax, qmin, qmax), cmax, c)
-        s.append(f'<g class="w-lead1"{tag_in(4)}><line x1="{ax}" y1="{ay}" x2="{rx(c):.1f}" y2="{ry(q):.1f}" stroke="#1f2328" stroke-width="1.8"/>'
+        s.append(f'<g class="w-lead1"{tag_in(1)}><line x1="{ax}" y1="{ay}" x2="{rx(c):.1f}" y2="{ry(q):.1f}" stroke="#1f2328" stroke-width="1.8"/>'
                  f'<circle cx="{rx(c):.1f}" cy="{ry(q):.1f}" r="6" fill="{RG[k][2]}" stroke="#fff" stroke-width="2"/></g>')
     b_, t_ = LTXT[ks[0]]
-    h.append(f'<div class="w-glab"{tag_in(4)} style="left:{lx}px;top:{ly}px"><b>{b_}</b><span>{t_}</span></div>')
+    h.append(f'<div class="w-glab"{tag_in(1)} style="left:{lx}px;top:{ly}px"><b>{b_}</b><span>{t_}</span></div>')
 s.append('</svg>')
 money_fx = ''.join(f'<span style="--i:{i}">💸</span>' for i in range(5))
-slides.append(f'''  <section class="slide p2 w-on" data-name="Refresher: groups" data-classes='{{"w-q1":2,"w-q2":3}}'>
+slides.append(f'''  <section class="slide p2 w-on" data-name="Refresher: groups" data-classes='{{"w-q1":3,"w-q2":4}}'>
     <div class="c-kicker">Refresher</div>
     <div class="c-h">Customer groups want different things</div>
     {''.join(s)}
     {''.join(h)}
     <div class="w-money w-m1" style="left:{RX0 + 65}px;top:{ry(Q0) - 70:.0f}px">{money_fx}</div>
     <div class="w-money w-m2" style="left:{RX0 + 65}px;top:{ry(Q1) - 70:.0f}px">{money_fx}</div>
-    <div class="w-who" style="left:{RX0 + 36}px;top:{RY0 + 10}px"><span{tag_in(1, 2)}>Who buys: 🎓</span><span{tag_in(2, 3)}>Who buys: 🎓 💼</span><span{tag_in(3)}>Who buys: 🎓 💼 🤝 ⚖️</span></div>
+    <div class="w-who" style="left:{RX0 + 36}px;top:{RY0 + 10}px"><span{tag_in(2, 3)}>Who buys: 🎓</span><span{tag_in(3, 4)}>Who buys: 🎓 💼</span><span{tag_in(4)}>Who buys: 🎓 💼 🤝 ⚖️</span></div>
     <div class="note" data-at="0">A quick refresher on customer groups. Each group trades off price against the quality it needs before it subscribes. Price-sensitive individuals pay up to about $50 a month and accept a rough product. Professional individuals pay up to about $140 a month but need a much better product. Enterprises need even more quality, but pay per seat: strategic partners, like Fortune 500 companies, about $100 a seat for 200 to 2,000 seats; quality-first ones, like law firms, biotech and finance, about $120 a seat for 100 to 1,000 seats. There are 22 more groups, 20 of them found only through market research.</div>
-    <div class="note" data-at="1">Your product starts here, low quality, so only price-sensitive individuals buy.</div>
-    <div class="note" data-at="2">Spending on development raises quality, but it costs money upfront and lands weeks later. Then professional individuals start buying.</div>
-    <div class="note" data-at="3">Keep spending and you reach enterprises: strategic partners and quality-first enterprises. Per-seat prices, hundreds to thousands of seats per subscription.</div>
-    <div class="note" data-at="4">So: price-sensitive individuals have a small budget but a low quality bar; professional individuals need more quality and pay more; enterprise groups need even more quality, and each subscription pays for 100 to 2,000 seats.</div>
+    <div class="note" data-at="1">So: price-sensitive individuals have a small budget but a low quality bar; professional individuals need more quality and pay more; enterprise groups need even more quality, and each subscription pays for 100 to 2,000 seats.</div>
+    <div class="note" data-at="2">Your product starts here, low quality, so only price-sensitive individuals buy.</div>
+    <div class="note" data-at="3">Spending on development raises quality, but it costs money upfront and lands weeks later. Then professional individuals start buying.</div>
+    <div class="note" data-at="4">Keep spending and you reach enterprises: strategic partners and quality-first enterprises. Per-seat prices, hundreds to thousands of seats per subscription.</div>
   </section>''')
 css.append('''
 .w-reach { transform-box: fill-box; transform-origin: bottom; transition: opacity .6s ease, transform 1.4s var(--ease) 1.2s !important; }

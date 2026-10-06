@@ -146,9 +146,9 @@ svg.append('<text x="620" y="428" text-anchor="end" font-size="19" fill="#1f2328
 svg.append('<text x="0" y="0" font-size="19" fill="#1f2328" transform="translate(56 400) rotate(-90)">quality →</text>')
 svg.append(f'<path class="c-draw cc" pathLength="1" d="{dag}" fill="none" stroke="var(--c-blue)" stroke-width="5" stroke-linejoin="round" style="--d:.2s"/>')
 svg.append(f'<path class="c-draw cc" pathLength="1" d="{dexp}" fill="none" stroke="var(--c-red)" stroke-width="4" stroke-linejoin="round" style="--d:.7s"/>')
-svg.append(f'<text x="{cx(500) + 8:.0f}" y="{cy(ag[-1][1]) + 6:.0f}" font-size="19" font-weight="600" fill="var(--c-blue)">product quality</text>')
+svg.append(f'<text x="{cx(500) + 8:.0f}" y="{cy(ag[-1][1]) + 6:.0f}" font-size="19" fill="var(--c-blue)">product quality</text>')
 svg.append(f'<g class="c-leave"><rect x="{cx(290):.0f}" y="{cy(.72):.0f}" width="{cx(365)-cx(290):.0f}" height="{cy(.58)-cy(.72):.0f}" rx="8" fill="var(--c-red)" opacity=".12"/><text x="{cx(327):.0f}" y="{cy(.58) + 26:.0f}" text-anchor="middle" font-size="19" fill="#1f2328">customers leave</text></g>')
-svg.append(f'<text x="{cx(500) + 8:.0f}" y="{cy(exp_pts[-1][1]) + 26:.0f}" font-size="19" font-weight="600" fill="var(--c-red)">customer expectation</text>')
+svg.append(f'<text x="{cx(500) + 8:.0f}" y="{cy(exp_pts[-1][1]) + 26:.0f}" font-size="19" fill="var(--c-red)">customer expectation</text>')
 svg.append('</svg></div>')
 COMP = ''.join(svg)
 

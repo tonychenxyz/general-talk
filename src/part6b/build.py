@@ -114,7 +114,8 @@ HOT = NS                                               # step that highlights th
 s = ['<svg class="rb-svg" viewBox="0 0 1600 900">']
 # drop bands (behind everything)
 for i in top2:
-    s.append(f'<rect class="rb-band"{tag_in(HOT)} x="{sx(i) + 8}" y="{SY0 - 16}" width="{SDX - 16}" height="{SY1 - SY0 + 16}" rx="12" fill="var(--c-red-soft)"/>')
+    # band spans exactly between the two stage points, so its edges line up with the red segment's ends
+    s.append(f'<rect class="rb-band"{tag_in(HOT)} x="{sx(i)}" y="{SY0 - 16}" width="{SDX}" height="{SY1 - SY0 + 16}" fill="var(--c-red-soft)" stroke="#fff" stroke-width="3"/>')
 for t in range(0, 101, 20):
     s.append(f'<line x1="{SX0 - 40}" x2="{sx(NS - 1) + 40}" y1="{sy(t):.1f}" y2="{sy(t):.1f}" stroke="#e5e8ed"/>'
              f'<text x="{SX0 - 56}" y="{sy(t) + 7:.1f}" text-anchor="end" class="rb-tick">{t}%</text>')

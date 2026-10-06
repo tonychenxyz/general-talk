@@ -141,6 +141,8 @@ svg.line path { fill: none; stroke: var(--text); stroke-width: 2; stroke-dasharr
 .openended { position: absolute; left: 800px; top: 465px; white-space: nowrap;
   transform: translate(-50%, -50%) rotate(-26.95deg) translateY(-34px);
   font-size: 30px; font-weight: 600; color: var(--accent); }
+/* gradient text along the slope: dark like the "can do" dots -> blue like the "can't do" dots */
+.oe-grad { background: linear-gradient(90deg, #1f2328 0%, #286ee0 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .openended.frag-hidden { transform: translate(-50%, -50%) rotate(-26.95deg) translateY(-14px); }
 
 /* ARC mini grids */
@@ -2347,7 +2349,7 @@ body:not(.ui):not(.navopen) { cursor: none; }
         <li class="rise" data-in="10" data-out="11"><span class="n">2</span><span>🌍 Deep understanding of a vast world</span></li>
       </ol>
     </div>
-    <div class="openended" data-in="12">more open-ended 🚀</div>
+    <div class="openended" data-in="12"><span class="oe-grad">more open-ended</span> 🚀</div>
 
     <div class="note" data-at="0">To understand what it can't do, we have to first look at what it can do.</div>
     <div class="note" data-at="1">SWE-bench: fix a real GitHub bug.</div>

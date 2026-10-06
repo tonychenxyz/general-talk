@@ -131,6 +131,15 @@ S.append('''  <section class="slide p2 oq-on" data-name="Q3: dealing with humans
     <div class="note" data-at="2">Can an agent orchestrate a whole society of humans?</div>
   </section>''')
 
+S.append('''  <section class="slide p2 oq-on" data-name="Q&amp;A">
+    ''' + svg('oq4', constellation(seed=21)) + '''
+    <div class="title">
+      <h1>Q&amp;A</h1>
+      <div class="by c-aka">Thank you!</div>
+    </div>
+    <div class="note" data-at="0">Thank you. Happy to take questions.</div>
+  </section>''')
+
 CSS = '''
 .oq-deco { position: absolute; inset: 0; width: 1600px; height: 900px; pointer-events: none; }
 .oq-tw { animation: oq-tw 4.5s ease-in-out var(--d, 0s) infinite alternate; }

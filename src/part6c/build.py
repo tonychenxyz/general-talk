@@ -53,7 +53,7 @@ BT = 150 + (690 - (46 + 30 + (CH or 500))) // 2   # header top: header + gap + c
 
 def big_row(r, start, end):
     """One model's five cards, large; card i appears at start+i."""
-    h = [f'<div class="rc-big"{tag_in(start, end)}>', head(r, 'rc-bh', rest_in=start + 4), '<div class="rc-row">']
+    h = [f'<div class="rc-big"{tag_in(start, end)}>', head(r, 'rc-bh'), '<div class="rc-row">']
     for i, c in enumerate(r['cards']):
         st = start + i
         q = wbr(c['quote'])
@@ -114,7 +114,7 @@ notes = [
 ]
 marks = {'GLM 5.3': 5, 'Claude Opus 5': 10, 'GPT-6 Astra': 15, 'All four': FS}
 slides.append(f'''  <section class="slide p2" data-name="Seeing vs recognizing" data-classes='{{"rc-seen": {FS + 1}}}' data-marks='{json.dumps(marks)}'>
-    <div class="c-kicker">Focalboard: a shared board never shows up in the recipient’s sidebar</div>
+    <div class="c-kicker">Example: a shared board never shows up in the recipient’s sidebar</div>
     <div class="c-h">All agents see the buggy behavior, some choose to ignore it</div>
     {''.join(h)}
 ''' + '\n'.join(f'    <div class="note" data-at="{i}">{esc(n)}</div>' for i, n in enumerate(notes)) + '\n  </section>')

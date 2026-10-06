@@ -89,7 +89,13 @@ S.append('''  <section class="slide p2" data-name="Q1: learning from people" dat
     ''' + svg('oq1', experts()) + '''
     <div class="oq">
       <div class="oq-k">Question #1</div>
-      <div class="oq-q">Does learning from <span class="oq-ins"><span>really, really smart&nbsp;</span></span>people<span class="oq-ins"><span> in diverse areas</span></span> help?</div>
+      <div class="oq-q oq-line">Does learning from<span class="oq-gap"><span>&nbsp;really, really smart</span></span> people<span class="oq-gap"><span>&nbsp;in diverse areas</span></span> help?</div>
+      <script>(() => {
+        // measure each inserted phrase so its gap can open to exactly that width
+        const sec = document.currentScript.closest("section");
+        const set = () => sec.querySelectorAll(".oq-gap").forEach(g => g.style.setProperty("--w", g.firstElementChild.scrollWidth + "px"));
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(set); set();
+      })();</script>
       <ul class="oq-sub">
         <li class="rise" data-in="2">How to create smart-people data scalably?</li>
         <li class="rise" data-in="3">How to measure the gap in thinking between LLMs and these really, really smart people?</li>
@@ -152,10 +158,11 @@ CSS = '''
 .oq { position: absolute; left: 160px; right: 160px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 .oq-k { font-size: 28px; font-weight: 500; margin-bottom: 26px; }
 .oq-q { font-size: 54px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; max-width: 1200px; }
-.oq-ins { display: inline-grid; grid-template-columns: 0fr; transition: grid-template-columns 1s var(--ease); vertical-align: bottom; }
-.oq-ins > span { overflow: hidden; white-space: nowrap; }
-.oq-grow .oq-ins { grid-template-columns: 1fr; }
-.oq-grow .oq-ins > span { white-space: normal; }
+.oq-line { white-space: nowrap; font-size: 40px; }
+.oq-gap { display: inline-block; width: 0; overflow: hidden; vertical-align: bottom; transition: width .8s var(--ease); }
+.oq-gap > span { display: inline-block; opacity: 0; transform: translateY(10px); transition: opacity .6s ease, transform .6s var(--ease); }
+.oq-grow .oq-gap { width: var(--w); }
+.oq-grow .oq-gap > span { opacity: 1; transform: none; transition-delay: .75s; }   /* words arrive after the gap has opened */
 .oq-sub { list-style: none; margin-top: 64px; display: flex; flex-direction: column; gap: 26px; max-width: 1150px; }
 .oq-sub li { font-size: 32px; line-height: 1.35; }
 '''

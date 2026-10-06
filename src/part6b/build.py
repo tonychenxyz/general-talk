@@ -166,8 +166,7 @@ notes = [
 ]
 note_html = '\n'.join(f'    <div class="note" data-at="{k}">{esc(t, quote=False)}</div>' for k, t in enumerate(notes))
 slides.append(f'''  <section class="slide p2" data-name="Where agents stumble" data-classes='{{"rb-hot": {HOT}}}' data-marks='{{"Two biggest drops": {HOT}}}'>
-    <div class="c-kicker">Where do agents stumble?</div>
-    <div class="c-h">Half the cases are lost before the bug is found</div>
+    <div class="c-h">Where do agents stumble?</div>
     {''.join(s)}
 {note_html}
   </section>''')

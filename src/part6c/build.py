@@ -110,12 +110,12 @@ notes = [
     'And it decides to fix those other bugs instead. So it leaves this one unfixed.',
     # all four
     'Side by side: two agents fixed it, two left it unfixed.',
-    'And all four reached the empty sidebar. Seeing a bug is not the same as recognizing it.',
+    'And all four reached the empty sidebar: they all saw the buggy behavior, but some chose to ignore it.',
 ]
 marks = {'GLM 5.3': 5, 'Claude Opus 5': 10, 'GPT-6 Astra': 15, 'All four': FS}
 slides.append(f'''  <section class="slide p2" data-name="Seeing vs recognizing" data-classes='{{"rc-seen": {FS + 1}}}' data-marks='{json.dumps(marks)}'>
     <div class="c-kicker">Focalboard: a shared board never shows up in the recipient’s sidebar</div>
-    <div class="c-h">Seeing a bug is not the same as recognizing it</div>
+    <div class="c-h">All agents see the buggy behavior, some choose to ignore it</div>
     {''.join(h)}
 ''' + '\n'.join(f'    <div class="note" data-at="{i}">{esc(n)}</div>' for i, n in enumerate(notes)) + '\n  </section>')
 css.append(f'''

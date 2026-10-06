@@ -305,17 +305,15 @@ def mbr(a, b, x, step):
     ya, yb = cyp(CV[a]['final']), cyp(CV[b]['final']); k = CV[b]['final'] / CV[a]['final']
     return (f'<g{tag_in(step)}><path d="M{x - 10} {ya:.1f} H{x} V{yb:.1f} H{x - 10}" fill="none" stroke="{COL[b]}" stroke-width="3"/>'
             f'<text x="{x + 14}" y="{(ya + yb) / 2 + 14:.1f}" class="w-mult">{k:.0f}×</text></g>')
-s.append(mbr('GPT-5.6 Sol', 'GPT-6 Sol', 1262, 1))
-s.append(mbr('Claude Fable 5', 'Claude Fable 5.1', 1392, 2))
+s.append(mbr('GPT-5.6 Sol', 'GPT-6 Sol', 1262, 0))
+s.append(mbr('Claude Fable 5', 'Claude Fable 5.1', 1392, 0))
 s.append('</svg>')
 k_sol = CV['GPT-6 Sol']['final'] / CV['GPT-5.6 Sol']['final']; k_fab = CV['Claude Fable 5.1']['final'] / CV['Claude Fable 5']['final']
-slides.append(f'''  <section class="slide p2 w-on" data-name="Recent models?" data-marks='{{"GPT Sol {k_sol:.0f}×":1,"Fable {k_fab:.0f}×":2}}'>
+slides.append(f'''  <section class="slide p2 w-on" data-name="Recent models?">
     <div class="w-title">But What's Going On with Recent Models?</div>
-    <div class="w-sub20"{tag_in(2)}>Simply acting more wouldn't improve 138×</div>
+    <div class="w-sub20">Simply acting more wouldn't improve 138×</div>
     {''.join(s)}
-    <div class="note" data-at="0">But what's going on with the most recent models?</div>
-    <div class="note" data-at="1">GPT-6 Sol ends with {k_sol:.0f} times the cash of GPT-5.6 Sol…</div>
-    <div class="note" data-at="2">…and Fable 5.1 ends with {k_fab:.0f} times Fable 5. Being a bit more active doesn't explain an order-of-magnitude jump in a few months. Something else must be happening.</div>
+    <div class="note" data-at="0">But what's going on with the most recent models? GPT-6 Sol ends with {k_sol:.0f} times the cash of GPT-5.6 Sol, and Fable 5.1 ends with {k_fab:.0f} times Fable 5. Being a bit more active doesn't explain an order-of-magnitude jump in a few months. Something else must be happening.</div>
   </section>''')
 css.append('''
 .w-title { position: absolute; left: 0; right: 0; top: 64px; text-align: center; font-size: 52px; font-weight: 600; letter-spacing: -.02em; }

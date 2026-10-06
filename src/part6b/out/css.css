@@ -21,6 +21,7 @@
 .rb-step.frag-hidden .rb-dot { opacity: 0; transition: none; }
 .rb-svg .rb-avgdot { fill: #000; }
 .rb-svg .rb-avgv { font-size: 24px; font-weight: 700; paint-order: stroke; stroke: #fff; stroke-width: 7px; stroke-linejoin: round; }
+.rb-svg .rb-lg { font-size: 24px; }
 .rb-svg .rb-avgname { font-size: 24px; font-weight: 700; }
 .rb-svg .rb-grayname { font-size: 22px; fill: #8a8f95; }
 .rb-svg .rb-drop { font-size: 40px; font-weight: 700; }

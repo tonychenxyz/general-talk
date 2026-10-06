@@ -144,11 +144,14 @@ for i in range(NS):
     g = [f'<g class="rb-step"{tag_in(i)}>']
     lx, ly, anc = (sx(i) + 16, sy(avg[i]) - 16, 'start') if i else (sx(i), sy(avg[i]) - 22, 'middle')
     g.append(f'<text class="rb-dot rb-avgv" x="{lx}" y="{ly:.1f}" text-anchor="{anc}">{avg[i]:.1f}%</text>'.replace('100.0%', '100%'))
-    if i == NS - 1:
-        g.append(f'<text class="rb-dot rb-avgname" x="{sx(i) + 16}" y="{sy(avg[i]) + 36:.1f}">Average</text>'
-                 f'<text class="rb-dot rb-grayname" x="{sx(i) + 16}" y="{sy(max(v[i] for v in lines.values())) - 14:.1f}">Each agent</text>')
     labels.append(''.join(g) + '</g>')
 s += gray + black + labels
+# legend, shown from the first step in the empty upper-right corner
+LGX, LGY = sx(NS - 1) - 250, sy(96)
+s.append(f'<g class="rb-legend"><line x1="{LGX}" x2="{LGX + 48}" y1="{LGY}" y2="{LGY}" stroke="#c4c4c4" stroke-width="3"/>'
+         f'<circle cx="{LGX + 24}" cy="{LGY}" r="5.5" fill="#c4c4c4"/><text x="{LGX + 62}" y="{LGY + 8}" class="rb-lg">Each agent</text>'
+         f'<line x1="{LGX}" x2="{LGX + 48}" y1="{LGY + 44}" y2="{LGY + 44}" stroke="#000" stroke-width="5"/>'
+         f'<circle cx="{LGX + 24}" cy="{LGY + 44}" r="9" fill="#000"/><text x="{LGX + 62}" y="{LGY + 52}" class="rb-lg">Average</text></g>')
 # drop callouts (bottom of each band, where no line passes)
 for i in top2:
     s.append(f'<text class="rb-drop"{tag_in(HOT)} x="{sx(i) + SDX / 2}" y="{SY1 - 36}" text-anchor="middle">−{drops[i]:.1f}</text>')
@@ -180,6 +183,7 @@ css.append('''
 .rb-step.frag-hidden .rb-dot { opacity: 0; transition: none; }
 .rb-svg .rb-avgdot { fill: #000; }
 .rb-svg .rb-avgv { font-size: 24px; font-weight: 700; paint-order: stroke; stroke: #fff; stroke-width: 7px; stroke-linejoin: round; }
+.rb-svg .rb-lg { font-size: 24px; }
 .rb-svg .rb-avgname { font-size: 24px; font-weight: 700; }
 .rb-svg .rb-grayname { font-size: 22px; fill: #8a8f95; }
 .rb-svg .rb-drop { font-size: 40px; font-weight: 700; }
